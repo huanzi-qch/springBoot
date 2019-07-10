@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.huanzi.qch.springbootmybatis.mapper.UserMapper">
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="cn.huanzi.qch.springbootmybatis.pojo.User">
+        insert into tb_user(username,password,created) value(#{username},#{password},#{created})
+    </insert>
+
+    <delete id="delete" parameterType="cn.huanzi.qch.springbootmybatis.pojo.User">
+        delete from tb_user where id = #{id}
+    </delete>
+
+    <update id="update" parameterType="cn.huanzi.qch.springbootmybatis.pojo.User">
+        update tb_user set username = #{username} where id = #{id}
+    </update>
+
+    <select id="select" parameterType="cn.huanzi.qch.springbootmybatis.pojo.User" resultType="cn.huanzi.qch.springbootmybatis.pojo.User">
+		select * from tb_user where id = #{id}
+	</select>
+
+</mapper>

@@ -1,0 +1,52 @@
+<!DOCTYPE>
+<!--解决idea thymeleaf 表达式模板报红波浪线-->
+<!--suppress ALL -->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>聊天页面</title>
+    <!-- jquery在线版本 -->
+    <script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
+    <!--引入样式-->
+    <link th:href="@{/css/socketChart.css}" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div id="hz-main">
+    <div id="hz-message">
+        <!-- 头部 -->
+        正在与<span id="toUserName"></span>聊天
+        <hr style="margin: 0px;"/>
+        <!-- 主体 -->
+        <div id="hz-message-body">
+        </div>
+        <!-- 功能条 -->
+        <div id="">
+            <button>表情</button>
+            <button>图片</button>
+            <button id="videoBut">视频</button>
+            <button onclick="send()" style="float: right;">发送</button>
+        </div>
+        <!-- 输入框 -->
+        <div contenteditable="true" id="hz-message-input">
+
+        </div>
+    </div>
+    <div id="hz-group">
+        登录用户：<span id="talks" th:text="${username}">请登录</span>
+        <br/>
+        在线人数:<span id="onlineCount">0</span>
+        <!-- 主体 -->
+        <div id="hz-group-body">
+
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript" th:inline="javascript">
+    //项目路径
+    ctx = [[${#request.getContextPath()}]];
+
+    //登录名
+    var username = /*[[${username}]]*/'';
+</script>
+<script th:src="@{/js/socketChart.js}"></script>
+</html>

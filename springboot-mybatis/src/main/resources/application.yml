@@ -1,0 +1,28 @@
+server:
+  port: 10090
+spring:
+    application:
+      name: springboot-mybatis
+    thymeleaf:
+      cache: false  #关闭页面缓存
+      prefix: classpath:/view/  #thymeleaf访问根路径
+      mode: LEGACYHTML5
+
+    datasource: #数据库相关
+      url: jdbc:mysql://localhost:3306/test?serverTimezone=GMT%2B8&characterEncoding=utf-8
+      username: root
+      password: 123456
+      driver-class-name: com.mysql.jdbc.Driver
+    mvc:
+      date-format: yyyy-MM-dd HH:mm:ss #mvc接收参数时对日期进行格式化
+
+    jackson:
+      date-format: yyyy-MM-dd HH:mm:ss #jackson对响应回去的日期参数进行格式化
+      time-zone: GMT+8
+
+#如果采用xml配置方式则需要进行加载扫描
+mybatis:
+  # 配置mapper的扫描，找到所有的mapper.xml映射文件
+  mapperLocations: classpath:conf/mybatis/mapper/*.xml
+  # 加载全局的配置文件
+  configLocation: classpath:conf/mybatis/mybatis.cfg.xml

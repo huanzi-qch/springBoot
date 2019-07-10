@@ -1,0 +1,85 @@
+body{
+    background-color: #efebdc;
+}
+#hz-main{
+    width: 700px;
+    height: 500px;
+    background-color: red;
+    margin: 0 auto;
+}
+
+#hz-message{
+    width: 500px;
+    height: 500px;
+    float: left;
+    background-color: #B5B5B5;
+}
+
+#hz-message-body{
+    width: 460px;
+    height: 340px;
+    background-color: #E0C4DA;
+    padding: 10px 20px;
+    overflow:auto;
+}
+
+#hz-message-input{
+    width: 500px;
+    height: 99px;
+    background-color: white;
+    overflow:auto;
+}
+
+#hz-group{
+    width: 200px;
+    height: 500px;
+    background-color: rosybrown;
+    float: right;
+}
+
+.hz-message-list{
+    min-height: 30px;
+    margin: 10px 0;
+}
+.hz-message-list-text{
+    padding: 7px 13px;
+    border-radius: 15px;
+    width: auto;
+    max-width: 85%;
+    display: inline-block;
+}
+
+.hz-message-list-username{
+    margin: 0;
+}
+
+.hz-group-body{
+    overflow:auto;
+}
+
+.hz-group-list{
+    padding: 10px;
+}
+
+.left{
+    float: left;
+    color: #595a5a;
+    background-color: #ebebeb;
+}
+.right{
+    float: right;
+    color: #f7f8f8;
+    background-color: #919292;
+}
+.hz-badge{
+    width: 20px;
+    height: 20px;
+    background-color: #FF5722;
+    border-radius: 50%;
+    float: right;
+    color: white;
+    text-align: center;
+    line-height: 20px;
+    font-weight: bold;
+    opacity: 0;
+}

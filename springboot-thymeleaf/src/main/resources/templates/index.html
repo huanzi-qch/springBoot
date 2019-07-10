@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<!--解决idea thymeleaf 表达式模板报红波浪线-->
+<!--suppress ALL -->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>srpingboot</title>
+</head>
+<body>
+<!-- 属性替换，其他属性同理 -->
+<h1 th:text="${newText}">Hello World</h1>
+<!--
+    设置多个attr
+    th:attr="id=${user.id},data-xxx=${user.xxx},data-yyy=${user.yyy}"
+
+    片段的使用、传值和调用
+    <div th:fragment="common(text1,text2)">
+        ...
+    </div>
+    th:insert 是最简单的：它只是插入指定的片段作为其主机标签的主体。
+    <div th:insert="base ::common(${text1},${text2})"></div>
+
+    th:replace实际上用指定的片段替换它的主机标签。
+    <div th:replace="base ::common(${text1},${text2})"></div>
+　　　　
+　　　　　三目表达式：
+　　　　　<h3 th:text="${loginUser != null} ? ${loginUser.username} : '请登录'"></h3>　
+
+-->
+
+<!-- if-else -->
+<h3 th:if="${loginUser} ne null" th:text="${loginUser.username}"></h3>
+<h3 th:unless="${loginUser} ne null">请登录</h3>
+
+<!-- switch -->
+<div th:switch="${gender}">
+    <p th:case="'1'">男</p>
+    <p th:case="'0'">女</p>
+    <!-- th:case="*"  类似switch中的default -->
+    <p th:case="*">其他</p>
+</div>
+
+<!--
+　　　　each
+　　　　其中，iterStat参数为状态变量，常用的属性有
+　　　　index 迭代下标，从0开始
+　　　　count 迭代下标，从1开始
+　　　　size 迭代元素的总量
+　　　　current 当前元素
+　　 -->
+<table>
+    <thead>
+    <tr>
+        <th>id</th>
+        <th>username</th>
+        <th>password</th>
+        <th>created</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user,iterStat : ${userList}">
+        <td th:text="${user.id}"></td>
+        <td th:text="${user.username}"></td>
+        <td th:text="${user.password}"></td>
+        <td th:text="${user.created}"></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+<!-- 引入静态资源 -->
+<script th:src="@{/js/jquery-1.9.1.min.js}" type="application/javascript"></script>
+</html>

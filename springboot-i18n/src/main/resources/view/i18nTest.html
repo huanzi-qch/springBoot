@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<!--解决idea thymeleaf 表达式模板报红波浪线-->
+<!--suppress ALL -->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>i18n国际化测试</title>
+    <script th:src="@{/js/jquery-1.9.1.min.js}"></script>
+    <script th:src="@{/js/jquery.i18n.properties.js}"></script>
+</head>
+<body>
+<h3 th:text="#{welcome}"></h3>
+<a href="?lang=en_US">English(US)</a>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="?lang=zh_CN">简体中文</a>
+&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="?lang=zh_TW">繁体中文</a>
+</body>
+<script th:inline="javascript">
+    //项目路径
+    ctx = [[${#request.getContextPath()}]];
+
+    //初始化i18n插件
+    try {
+        $.i18n.properties({
+            path: ctx + '/i18n/',
+            name: 'messages',
+            language: [[${#locale.language+'_'+#locale.country}]],
+            mode: "both"
+        });
+    } catch (e) {
+        console.error(e);
+    }
+
+    //初始化i18n方法
+    function i18n(labelKey) {
+        try {
+            return $.i18n.prop(labelKey);
+        } catch (e) {
+            console.error(e);
+            return labelKey;
+        }
+    }
+
+    console.log(i18n("welcome"));
+</script>
+</html>
