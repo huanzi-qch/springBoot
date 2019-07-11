@@ -5,7 +5,7 @@
     <artifactId>springboot-loadmyprofiles</artifactId>
     <version>0.0.1</version>
     <name>springboot-loadmyprofiles</name>
-    <description>SpringBoot系列——加载自定义配置文件</description>
+    <description>SpringBoot系列——加载自定义配置文件 </description>
 
     <!--继承父类-->
     <parent>
