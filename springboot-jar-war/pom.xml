@@ -8,7 +8,7 @@
     <name>springboot-jar-war</name>
     <description>SpringBoot系列——打成jar包跟war包</description>
     <!-- 默认jar，想要打成war包需要修改 -->
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
 
     <!--继承父类-->
     <parent>
@@ -19,11 +19,11 @@
 
     <dependencies>
         <!-- 如需打成war包 确保嵌入的servlet容器不会干扰部署war文件的servlet容器 -->
-        <!--<dependency>
+        <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
             <scope>provided</scope>
-        </dependency>-->
+        </dependency>
     </dependencies>
 
     <!--构建工具-->
