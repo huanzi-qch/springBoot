@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<!--解决idea thymeleaf 表达式模板报红波浪线-->
+<!--suppress ALL -->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>登录页面</title>
+    <!-- 引入静态资源 -->
+    <link th:href="@{/layui/css/layui.css}" rel="stylesheet" type="text/css"/>
+    <style>
+        /*上下左右居中*/
+        .main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 150px;
+        }
+    </style>
+</head>
+<body>
+<div class="main">
+    <form class="layui-form">
+        <div class="layui-form-item">
+            <label class="layui-form-label">账号</label>
+            <div class="layui-input-block">
+                <input type="text" id="username" name="username" placeholder="请输入账号"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">密码</label>
+            <div class="layui-input-block">
+                <input type="text" id="password" name="password" placeholder="请输入密码"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">验证码</label>
+            <div class="layui-input-block">
+                <img id="captchaImg" th:src="@{/getVerifyCodeImage}" onclick="changeCode()"/> <a
+                    href="javascript:changeCode()">看不清换一张</a>
+                <input type="text" id="captcha" name="captcha" placeholder="请输入验证码"
+                       class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <a class="layui-btn" onclick="formSubmit()">登录</a>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+<script th:src="@{/js/jquery.js}"></script>
+<script th:src="@{/layui/layui.js}"></script>
+<script th:inline="javascript">
+    //项目路径
+    var ctx = [[${#request.getContextPath()}]];
+
+    function formSubmit() {
+        $.post(ctx + "/login", {
+            username: $("#username").val(),
+            password: $("#password").val(),
+            captcha: $("#captcha").val(),
+        }, function (data) {
+            layui.use('layer', function () {
+                var layer = layui.layer;
+                if (data.code == 300) {
+                    layer.msg(data.msg, {icon: 1,time: 1000}, function () {
+                        window.location.href = ctx + data.url;
+                    });
+                } else {
+                    layer.msg(data.msg, {icon: 2,time: 2000}, function () {});
+                }
+            });
+        })
+    }
+
+    function changeCode() {
+        var img = document.getElementById("captchaImg");
+        img.src = ctx + "/getVerifyCodeImage?time=" + new Date().getTime();
+    }
+</script>
+</html>
