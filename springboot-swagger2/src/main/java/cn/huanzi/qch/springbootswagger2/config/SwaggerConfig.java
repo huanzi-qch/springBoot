@@ -1,6 +1,5 @@
-package cn.huanzi.qch.springbootswagger2;
+package cn.huanzi.qch.springbootswagger2.config;
 
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -12,9 +11,8 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
- * 接口文档API
+ * Swagger UI 配置信息
  */
-@ConditionalOnProperty(name = "swagger.enable", havingValue = "true")
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {
@@ -24,15 +22,15 @@ public class SwaggerConfig {
     @Bean
     public Docket controllerApi() {
         return new Docket(DocumentationType.SWAGGER_2)
-                .pathMapping("/")
                 .apiInfo(new ApiInfoBuilder()
-                        .title("标题：接口文档")
-                        .description("描述：用于管理、查看API信息。")
-                        .contact(new Contact("huanzi", "https://www.cnblogs.com/huanzi-qch/", "huznai.qch@qq.com"))
+                        .title("API实时接口文档")
+                        .description("用于实时查看、测试API")
+                        .contact(new Contact("huanzi-qch", "https://www.cnblogs.com/huanzi-qch/", ""))
                         .version("版本号:1.0")
                         .build())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("cn.huanzi.qch.springbootswagger2.Controller"))
+                //API基础扫描路径
+                .apis(RequestHandlerSelectors.basePackage("cn.huanzi.qch.springbootswagger2.controller"))
                 .paths(PathSelectors.any())
                 .build();
     }
