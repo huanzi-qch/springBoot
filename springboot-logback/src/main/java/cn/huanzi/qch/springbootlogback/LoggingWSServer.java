@@ -16,6 +16,8 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * WebSocket获取实时日志并输出到Web页面
@@ -82,6 +84,18 @@ public class LoggingWSServer {
                             if (split1.length >= 2) {
                                 line = split[0] + "]" + "<span style='color: #298a8a;'>" + split1[0] + "</span>" + "-" + split1[1];
                             }
+                        }
+
+                        // 匹配日期开头加换行，2019-08-12 14:15:04
+                        Pattern r = Pattern.compile("[\\d+][\\d+][\\d+][\\d+]-[\\d+][\\d+]-[\\d+][\\d+] [\\d+][\\d+]:[\\d+][\\d+]:[\\d+][\\d+]");
+                        Matcher m = r.matcher(line);
+                        if (m.find( )) {
+                            //找到下标
+                            int start = m.start();
+                            //插入
+                            StringBuilder  sb = new StringBuilder (line);
+                            sb.insert(start,"<br/><br/>");
+                            line = sb.toString();
                         }
 
                         copyOfRange[i] = line;
