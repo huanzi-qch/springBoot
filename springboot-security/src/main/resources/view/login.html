@@ -19,33 +19,32 @@
 </head>
 <body>
 <div class="main">
-    <form class="layui-form">
+    <form class="layui-form layui-form-pane">
+        <div class="layui-form-item">
+            <h1 style="text-align: center">XXX系统</h1>
+        </div>
         <div class="layui-form-item">
             <label class="layui-form-label">账号</label>
             <div class="layui-input-block">
-                <input type="text" id="username" name="username" placeholder="请输入账号"
-                       class="layui-input">
+                <input type="text" id="username" name="username" placeholder="请输入账号" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">密码</label>
             <div class="layui-input-block">
-                <input type="text" id="password" name="password" placeholder="请输入密码"
-                       class="layui-input">
+                <input type="text" id="password" name="password" placeholder="请输入密码" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
             <label class="layui-form-label">验证码</label>
-            <div class="layui-input-block">
-                <img id="captchaImg" th:src="@{/getVerifyCodeImage}" onclick="changeCode()"/> <a
-                    href="javascript:changeCode()">看不清换一张</a>
-                <input type="text" id="captcha" name="captcha" placeholder="请输入验证码"
-                       class="layui-input">
+            <div class="layui-input-inline">
+                <input type="text" id="captcha" name="captcha" placeholder="请输入验证码" class="layui-input" style="float: left;width: 52%">
+                <img id="captchaImg" th:src="@{/getVerifyCodeImage}" onclick="changeCode()"/><!-- <a href="javascript:changeCode()">看不清换一张</a>-->
             </div>
         </div>
         <div class="layui-form-item">
             <div class="layui-input-block">
-                <a class="layui-btn" onclick="formSubmit()">登录</a>
+                <a class="layui-btn" style="margin-left: -50px;margin-right: 50px;" onclick="formSubmit()">登录</a>
                 <button type="reset" class="layui-btn layui-btn-primary">重置</button>
             </div>
         </div>
