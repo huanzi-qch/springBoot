@@ -5,6 +5,7 @@ import cn.huanzi.qch.springbootsecurity.common.pojo.PageInfo;
 import cn.huanzi.qch.springbootsecurity.common.pojo.Result;
 import cn.huanzi.qch.springbootsecurity.common.repository.CommonRepository;
 import cn.huanzi.qch.springbootsecurity.util.CopyUtil;
+import org.hibernate.annotations.NotFound;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
@@ -98,8 +99,8 @@ public class CommonServiceImpl<V, E, T> implements CommonService<V, E, T> {
                     }
                 }
 
-                //找出值为空的属性，值为空则为忽略属性，我们复制的时候不进行赋值
-                if(null == fieldValue){
+                //找出值为空的属性，值为空则为忽略属性，或者被NotFound标注，我们复制的时候不进行赋值
+                if(null == fieldValue || field.isAnnotationPresent(NotFound.class)){
                     ignoreProperties.add(fieldName);
                 }
             }
