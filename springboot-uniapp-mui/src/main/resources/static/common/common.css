@@ -1,0 +1,131 @@
+/* 封装自定义弹窗 上右下左，居中 */
+.huanzi-dialog {
+    position: fixed;
+    background-color: white;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.huanzi-dialog-top {
+    width: 100%;
+    top: -100%;
+    border-radius: 0 0 13px 13px;
+}
+
+.huanzi-dialog-right {
+    width: 85%;
+    top: 0;
+    right: -85%;
+    bottom: 0;
+    border-radius: 13px 0 0 13px;
+}
+
+.huanzi-dialog-bottom {
+    width: 100%;
+    bottom: -100%;
+    border-radius: 13px 13px 0 0;
+}
+
+.huanzi-dialog-left {
+    width: 85%;
+    top: 0;
+    left: -85%;
+    bottom: 0;
+    border-radius: 0 13px 13px 0;
+}
+
+.huanzi-dialog-center {
+    border-radius: 13px;
+    opacity: 0;
+    /* 方案一 */
+    /*margin: auto;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;*/
+
+    /* 方案二 */
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%, -50%, 0) scale(1.185);
+}
+
+/* 自定义头部，系统状态栏的高度暂时写死30px */
+.huanzi-header{
+    position: fixed;
+    top:0;
+    right: 0;
+    left: 0;
+    background-image: linear-gradient(to bottom right, #0061ff, #6aa2ff);
+    box-shadow: 0 1px 6px #ccc;
+    height: 74px;
+}
+
+.huanzi-header  .statusbar {
+    height: 30px;
+    width: 100%;
+}
+
+.huanzi-header .titlebar{
+    padding-right: 10px;
+    padding-left: 10px;
+    border-bottom: 0;
+}
+
+.huanzi-header .titlebar a {
+    margin: 15px 5px;
+}
+
+.huanzi-header .titlebar * {
+    color: white;
+}
+
+.huanzi-header .mui-title{
+    line-height: 55px !important;
+    right: 100px;
+    left: 100px;
+    display: inline-block;
+    overflow: hidden;
+    width: auto;
+    margin: 0;
+    text-overflow: ellipsis;
+}
+
+.huanzi-content {
+    position: absolute;
+    top: 74px;
+    bottom: 50px;
+}
+
+
+/* 自定义页脚（底部导航栏） */
+.huanzi-footer{
+    position: fixed;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background-color: white;
+    box-shadow: 0 1px 6px #ccc;
+    height: 50px;
+    padding: 5px;
+}
+
+.huanzi-footer .huanzi-footer-buttom{
+    height: 50px;
+    float: left;
+    color: black;
+    /* 宽度为：100/按钮个数 */
+    width: 25%;
+}
+
+.huanzi-footer .huanzi-footer-buttom > p{
+    color: black;
+}
+
+.huanzi-footer .select{
+    color: #0091fb;
+}
+
+.huanzi-footer .select > p{
+    color: #0091fb;
+}
