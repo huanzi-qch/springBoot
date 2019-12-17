@@ -1,0 +1,77 @@
+<!--此页面用于放置页面的公共片段（fragment）-->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="static">
+    <!-- 获取应用路径 -->
+    <head>
+        <script th:inline="javascript">
+            ctx = [[${#request.getContextPath()}]];//应用路径
+        </script>
+    </head>
+
+    <!-- 引入mui框架 -->
+    <head>
+        <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+        <link rel='stylesheet' th:href="@{/common/mui/css/mui.css}"/>
+        <script th:src="@{/common/mui/js/mui.js}"></script>
+        <script type="text/javascript" charset="utf-8">
+            window.addEventListener("DOMContentLoaded", function(){
+                /* 初始化mui  https://dev.dcloud.net.cn/mui/util/#init  */
+                mui.init({});
+
+                //初始化scroll控件
+                mui('.mui-scroll-wrapper').scroll({
+                    deceleration: 0.0005 //flick 减速系数，系数越大，滚动速度越慢，滚动距离越小，默认值0.0006
+                });
+
+                /* mui物理返回按键默认监听 */
+                function muiBackFun(){
+                    mui.plusReady(function(){
+                        //首页index是不需要返回上一级，直接退出
+                        let indexArray = ["/index/index"];
+
+                        /* 自定义实体返回按钮事件 */
+                        let first=null;
+                        mui.back = function () {
+                            if ($.inArray(window.location.pathname, indexArray) >= 0) {
+                                /* 再按一次退出应用’ */
+                                if (!first) {
+                                    first = new Date().getTime();
+                                    plus.nativeUI.toast('再按一次退出程序');
+                                    setTimeout(function() {
+                                        first = null;
+                                    }, 1000);
+                                } else {
+                                    if (new Date().getTime() - first < 1000) {
+                                        plus.runtime.quit();
+                                    }
+                                }
+                            } else {
+                                /* 返回上一页 */
+                                plus.webview.currentWebview().back();
+                            }
+                        };
+                    });
+                }
+
+                muiBackFun();
+            })
+        </script>
+    </head>
+
+    <!-- uni 的 SDK -->
+    <head>
+        <script th:src="@{/common/uniapp/uni.webview.1.5.2.js}"></script>
+    </head>
+
+    <!-- 最后引入公用css、js -->
+    <head>
+        <!-- 禁止浏览器缓存 -->
+        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+        <meta http-equiv="Pragma" content="no-cache"/>
+        <meta http-equiv="Expires" content="0"/>
+
+        <link rel='stylesheet' th:href="@{/common/common.css}"/>
+        <script th:src="@{/common/common.js}"></script>
+    </head>
+</html>
