@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MUI的弹窗</title>
+    <script th:replace="common/head::static"></script>
+    <style>
+        body{
+            text-align: center;
+        }
+
+        .mui-btn{
+            width: 50%;
+            margin: 10px auto;
+        }
+    </style>
+</head>
+<body>
+    <button class="mui-btn"  onclick="mui.alert('我是警告框！','系统提示',function() {console.log('你已确认警告！')})">警告框</button>
+    <button class="mui-btn"  onclick="mui.confirm('确认要XXX吗？','系统提示',function() {mui.toast('你点击了确认！');console.log('很好，你点击了确认！')})">确认框</button>
+    <button class="mui-btn"  onclick="mui.prompt('我是DJ，爱不爱我？',null,'提问',null,function() {console.log('你已确认警告！')})">对话框</button>
+    <button class="mui-btn"  onclick="mui.toast('提交成功',{type:'div'})">自动消失提示框</button>
+    <button class="mui-btn"  onclick="mui.showLoading('加载中...','div')">loading</button>
+
+    <button class="mui-btn">无用按钮</button>
+    <button class="mui-btn">无用按钮</button>
+    <button class="mui-btn">无用按钮</button>
+    <button class="mui-btn">无用按钮</button>
+    <button class="mui-btn">无用按钮</button>
+    <button class="mui-btn">无用按钮</button>
+    <button class="mui-btn">无用按钮</button>
+</body>
+</html>

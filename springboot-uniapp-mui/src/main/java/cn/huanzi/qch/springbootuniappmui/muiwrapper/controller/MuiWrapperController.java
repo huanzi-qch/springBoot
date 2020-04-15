@@ -8,10 +8,29 @@ import org.springframework.web.servlet.ModelAndView;
 @RestController
 @RequestMapping("/muiwrapper/")
 public class MuiWrapperController {
+    //跳转主页面
+    @GetMapping("main")
+    public ModelAndView main() {
+        return new ModelAndView("muiwrapper/main");
+    }
 
     @GetMapping("dialog")
-    public ModelAndView index(){
+    public ModelAndView dialog(){
         return new ModelAndView("muiwrapper/dialog");
     }
 
+    @GetMapping("muiDialog")
+    public ModelAndView muiDialog(){
+        return new ModelAndView("muiwrapper/muiDialog");
+    }
+
+    @GetMapping("test3")
+    public ModelAndView test3(){
+        return new ModelAndView("muiwrapper/test3");
+    }
+
+    @GetMapping("test4")
+    public ModelAndView test4(){
+        return new ModelAndView("muiwrapper/test4");
+    }
 }

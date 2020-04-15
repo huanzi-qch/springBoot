@@ -171,8 +171,8 @@ var HuanziDialog = {
      */
     toast: function (message, speed) {
         speed = speed ? speed : 2000;
-        let $html = $("<div class=\"huanzi-dialog huanzi-dialog-center\" style=\"width: 45%;height: 20%;opacity: 1;z-index: 999;background-color: #5a5a5ad1;\">" +
-            "    <p style=\" position: relative; top: 50%; left: 50%; transform: translate3d(-50%, -50%, 0) scale(1); color: #e0e0e0; font-size: 20px; \">" + message + "</p>" +
+        let $html = $("<div class=\"huanzi-dialog huanzi-dialog-center\" style=\"width: 45%;height: 20%;opacity: 1;z-index: 999;border-radius: 5px;background-color: rgba(0, 0, 0, 0.6);\">" +
+            "    <p style=\" position: relative; top: 50%; left: 50%; transform: translate3d(-50%, -50%, 0) scale(1); color: #fff; font-size: 20px; \">" + message + "</p>" +
             "</div>");
         $("body").append($html);
         setTimeout(function () {
@@ -184,10 +184,30 @@ var HuanziDialog = {
 //先初始化自定义弹窗
 HuanziDialog.init();
 
-//底部按钮点击切换颜色
-$(document).on("click",".huanzi-footer-buttom", function (e) {
+//底部按钮点击事件
+$(document).on("click", ".huanzi-footer-buttom", function (e) {
+    //iframe跳转新页面
+    $("#mainIframe")[0].src = ctx + $(this).data("url");
+
+    //切换颜色
     $(".huanzi-footer-buttom").each(function () {
         $(this).removeClass("select");
     });
     $(this).addClass("select");
 });
+
+//mainIframe onload事件
+function mainIframeLoadFun(mainIframe) {
+    //自适应高度
+    mainIframe.height = $('.huanzi-content')[0].scrollHeight;
+
+    //修改标题
+
+    //子页面与父页面同源获取方法
+    // let title = document.getElementById('mainIframe').contentWindow.document.title;//iframe中子页面的title
+    let $mainFrame=$('#mainIframe');
+    let title = $mainFrame.contents().attr("title");
+
+    $("title").text(title);
+    $(".mui-title").text(title);
+}

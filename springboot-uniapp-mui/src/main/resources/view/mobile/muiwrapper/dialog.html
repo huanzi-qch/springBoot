@@ -17,84 +17,49 @@
     </style>
 </head>
 <body>
-<!-- 头部 -->
-<header class="huanzi-header">
-    <div class="statusbar"></div>
-    <div class="titlebar">
-        <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-        <h1 class="mui-title">基于MUI封装常用弹窗</h1>
-        <a class="mui-icon mui-icon-bars mui-pull-right"></a>
-    </div>
-</header>
+    <button class="mui-btn" onclick="HuanziDialog.show('#top')">上</button>
+    <button class="mui-btn"  onclick="HuanziDialog.show('#bottom')">下</button>
+    <button class="mui-btn"  onclick="HuanziDialog.show('#left')">左</button>
+    <button class="mui-btn"  onclick="HuanziDialog.show('#right')">右</button>
+    <button class="mui-btn"  onclick="HuanziDialog.show('#center')">居中</button>
+    <button class="mui-btn"  onclick="HuanziDialog.alert('系统提示','我是警告框！',function() {console.log('你已确认警告！')})">警告框</button>
+    <button class="mui-btn"  onclick="HuanziDialog.confirm('系统提示','确认要XXX吗？',function() {HuanziDialog.toast('你点击了确认！');console.log('很好，你点击了确认！')})">确认框</button>
+    <button class="mui-btn"  onclick="HuanziDialog.toast('提交成功')">自动消失提示框</button>
 
-<!-- 内容（可滑动区域） -->
-<div class="huanzi-content mui-scroll-wrapper">
-    <div class=" mui-scroll">
-        <button class="mui-btn" onclick="HuanziDialog.show('#top')">上</button>
-        <button class="mui-btn"  onclick="HuanziDialog.show('#bottom')">下</button>
-        <button class="mui-btn"  onclick="HuanziDialog.show('#left')">左</button>
-        <button class="mui-btn"  onclick="HuanziDialog.show('#right')">右</button>
-        <button class="mui-btn"  onclick="HuanziDialog.show('#center')">居中</button>
-        <button class="mui-btn"  onclick="HuanziDialog.alert('系统提示','我是警告框！',function() {console.log('你已确认警告！')})">警告框</button>
-        <button class="mui-btn"  onclick="HuanziDialog.confirm('系统提示','确认要XXX吗？',function() {HuanziDialog.toast('你点击了确认！');console.log('很好，你点击了确认！')})">确认框</button>
-        <button class="mui-btn"  onclick="HuanziDialog.toast('提交成功')">自动消失提示框</button>
+    <button class="mui-btn">无用按钮</button>
+    <button class="mui-btn">无用按钮</button>
+    <button class="mui-btn">无用按钮</button>
+    <button class="mui-btn">无用按钮</button>
+    <button class="mui-btn">无用按钮</button>
+    <button class="mui-btn">无用按钮</button>
+    <button class="mui-btn">无用按钮</button>
 
-        <button class="mui-btn">无用按钮</button>
-        <button class="mui-btn">无用按钮</button>
-        <button class="mui-btn">无用按钮</button>
-        <button class="mui-btn">无用按钮</button>
-        <button class="mui-btn">无用按钮</button>
-        <button class="mui-btn">无用按钮</button>
-        <button class="mui-btn">无用按钮</button>
-    </div>
-</div>
-<!-- 例如弹窗等内容，需要放在外面 -->
-<div>
-    <!-- 上 -->
-    <div id="top" class="huanzi-dialog huanzi-dialog-top" style="height: 500px">
-        <h5>我从上边弹出</h5>
-    </div>
+    <!-- 例如弹窗等内容，需要放在外面 -->
+    <div>
+        <!-- 上 -->
+        <div id="top" class="huanzi-dialog huanzi-dialog-top" style="height: 500px">
+            <h5>我从上边弹出</h5>
+        </div>
 
-    <!-- 下 -->
-    <div id="bottom" class="huanzi-dialog huanzi-dialog-bottom" style="height: 500px">
-        <h5>我从下边弹出</h5>
-    </div>
+        <!-- 下 -->
+        <div id="bottom" class="huanzi-dialog huanzi-dialog-bottom" style="height: 500px">
+            <h5>我从下边弹出</h5>
+        </div>
 
-    <!-- 左 -->
-    <div id="left" class="huanzi-dialog huanzi-dialog-left">
-        <h5>我从左边弹出</h5>
-    </div>
+        <!-- 左 -->
+        <div id="left" class="huanzi-dialog huanzi-dialog-left">
+            <h5>我从左边弹出</h5>
+        </div>
 
-    <!-- 右 -->
-    <div id="right" class="huanzi-dialog huanzi-dialog-right">
-        <h5>我从右边弹出</h5>
-    </div>
+        <!-- 右 -->
+        <div id="right" class="huanzi-dialog huanzi-dialog-right">
+            <h5>我从右边弹出</h5>
+        </div>
 
-    <!-- 居中 -->
-    <div id="center" class="huanzi-dialog huanzi-dialog-center" style="width: 65%;height: 30%">
-        <h5>我从中间弹出</h5>
+        <!-- 居中 -->
+        <div id="center" class="huanzi-dialog huanzi-dialog-center" style="width: 65%;height: 30%">
+            <h5>我从中间弹出</h5>
+        </div>
     </div>
-
-</div>
-
-<!-- 底部导航栏 -->
-<footer class="huanzi-footer">
-    <div class="huanzi-footer-buttom select">
-        <i class="mui-icon mui-icon-phone"></i>
-        <p>电话</p>
-    </div>
-    <div class="huanzi-footer-buttom">
-        <i class="mui-icon mui-icon-email"></i>
-        <p>邮件</p>
-    </div>
-    <div class="huanzi-footer-buttom">
-        <i class="mui-icon mui-icon-chatbubble"></i>
-        <p>短信</p>
-    </div>
-    <div class="huanzi-footer-buttom">
-        <i class="mui-icon mui-icon-weixin"></i>
-        <p>微信</p>
-    </div>
-</footer>
 </body>
 </html>
