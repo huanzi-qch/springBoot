@@ -14,11 +14,17 @@
 <body>
 <!-- 头部 -->
 <header class="huanzi-header">
+    <!-- 顶部进度条 -->
+    <div class="progress"><span></span></div>
+    <!-- 系统状态栏占高 -->
     <div class="statusbar"></div>
+    <!-- 标题栏 -->
     <div class="titlebar">
         <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
         <h1 class="mui-title"></h1>
-        <a class="mui-icon mui-icon-bars mui-pull-right"></a>
+        <div class="huanzi-header-right-button-list">
+            <a class="mui-icon mui-icon-bars mui-pull-right"></a>
+        </div>
     </div>
 </header>
 
@@ -26,7 +32,7 @@
 <div class="huanzi-content mui-scroll-wrapper">
     <div class=" mui-scroll">
         <!-- 直接嵌入iframe，且自适应宽高 -->
-        <iframe id="mainIframe" src="/muiwrapper/muiDialog" width="100%" onload="mainIframeLoadFun(this)"></iframe>
+        <iframe id="mainIframe" name="mainIframe" frameborder="0" src="/muiwrapper/muiDialog" width="100%" onload="mainIframeLoadFun(this)"></iframe>
     </div>
 </div>
 
@@ -42,7 +48,7 @@
     </div>
     <div class="huanzi-footer-buttom" data-url="/muiwrapper/test3">
         <i class="mui-icon mui-icon-chatbubble"></i>
-        <p>页面3</p>
+        <p>头尾操作</p>
     </div>
     <div class="huanzi-footer-buttom" data-url="/muiwrapper/test4">
         <i class="mui-icon mui-icon-weixin"></i>
@@ -50,4 +56,59 @@
     </div>
 </footer>
 </body>
+<script>
+    //自适应高度
+    adaptiveHeight();
+
+    //底部按钮点击事件
+    $(document).on("click", ".huanzi-footer-buttom", function (e) {
+        //iframe跳转新页面
+        $("#mainIframe")[0].src = ctx + $(this).data("url");
+
+        //切换颜色
+        $(".huanzi-footer-buttom").each(function () {
+            $(this).removeClass("select");
+        });
+        $(this).addClass("select");
+    });
+
+    //mainIframe onload事件
+    function mainIframeLoadFun(mainIframe) {
+        //修改标题
+        let $mainFrame=$('#mainIframe');
+        let title = $mainFrame.contents().attr("title");
+
+        $("title").text(title);
+        $(".mui-title").text(title);
+
+        //顶部进度条
+        $({property: 0}).animate({property: 100}, {
+            duration: 3000,
+            step: function() {
+                var percentage = Math.round(this.property);
+
+                $('.huanzi-header .progress').css('width',  percentage+"%");
+
+                if(percentage == 100) {
+                    $('.huanzi-header .progress').css('width',"0%");//完成，隐藏进度条
+                }
+            }
+        });
+    }
+
+    //自适应高度
+    function adaptiveHeight(){
+        $(".huanzi-content").css("top",$(".huanzi-header").css("height"));
+        document.getElementById("mainIframe").height = $('.huanzi-content')[0].scrollHeight;
+    }
+
+    //h5端默认隐藏
+    mui.plusReady(function(){
+        //显示系统状态栏占高
+        $(".huanzi-header .statusbar").css("display","block");
+
+        //自适应高度
+        adaptiveHeight();
+    });
+</script>
 </html>

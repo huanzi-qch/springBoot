@@ -184,30 +184,57 @@ var HuanziDialog = {
 //先初始化自定义弹窗
 HuanziDialog.init();
 
-//底部按钮点击事件
-$(document).on("click", ".huanzi-footer-buttom", function (e) {
-    //iframe跳转新页面
-    $("#mainIframe")[0].src = ctx + $(this).data("url");
+//操作头部方法
+var HuanziHeader = {
+    /**
+     * 左右无按钮
+     */
+    init : function () {
+        HuanziHeader.hideBack();
+        window.parent.$(".huanzi-header-right-button-list").empty();
+    },
+    /**
+     * 显示左边返回按钮
+     */
+    showBack : function () {
+        window.parent.$(".mui-action-back").show();
+    },
+    /**
+     * 隐藏左边返回按钮
+     */
+    hideBack : function () {
+        window.parent.$(".mui-action-back").hide();
+    },
+    /**
+     * 右边新增按钮
+     */
+    appendButton : function ($html) {
+        window.parent.$(".huanzi-header-right-button-list").append($html);
+    },
+    /**
+     * 删除按钮
+     */
+    removeButton : function (select) {
+        window.parent.$(select).remove();
+    }
+};
 
-    //切换颜色
-    $(".huanzi-footer-buttom").each(function () {
-        $(this).removeClass("select");
-    });
-    $(this).addClass("select");
-});
-
-//mainIframe onload事件
-function mainIframeLoadFun(mainIframe) {
-    //自适应高度
-    mainIframe.height = $('.huanzi-content')[0].scrollHeight;
-
-    //修改标题
-
-    //子页面与父页面同源获取方法
-    // let title = document.getElementById('mainIframe').contentWindow.document.title;//iframe中子页面的title
-    let $mainFrame=$('#mainIframe');
-    let title = $mainFrame.contents().attr("title");
-
-    $("title").text(title);
-    $(".mui-title").text(title);
-}
+//操作底部按钮方法
+var HuanziFooter = {
+    /**
+     * 显示底部按钮组
+     */
+    show : function () {
+        window.parent.$(".huanzi-footer").show();
+        window.parent.$('.huanzi-content').css("bottom","50px");
+        window.parent.document.getElementById("mainIframe").height = window.parent.$('.huanzi-content')[0].scrollHeight;
+    },
+    /**
+     * 隐藏底部按钮组
+     */
+    hide : function () {
+        window.parent.$(".huanzi-footer").hide();
+        window.parent.$('.huanzi-content').css("bottom","0");
+        window.parent.document.getElementById("mainIframe").height = window.parent.$('.huanzi-content')[0].scrollHeight;
+    }
+};

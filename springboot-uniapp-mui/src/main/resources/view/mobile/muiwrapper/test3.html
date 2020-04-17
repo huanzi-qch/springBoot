@@ -3,63 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>页面3</title>
+    <title>头尾操作</title>
     <script th:replace="common/head::static"></script>
     <style>
         body{
             text-align: center;
         }
+
+        .mui-btn{
+            width: 50%;
+            margin: 10px auto;
+        }
     </style>
 </head>
 <body>
-<h1>页面3</h1>
-<h1>页面3</h1>
-<h1>页面3</h1>
-<h1>页面3</h1>
-<h1>页面3</h1>
-<h1>页面3</h1>
-<h1>页面3</h1>
-<h1>页面3</h1>
-<h1>页面3</h1>
-<h1>页面3</h1>
-<h1>页面3</h1>
-<h1>页面3</h1>
-<h1>页面3</h1>
-<h1>页面3</h1>
-<h1>页面3</h1>
-<h1>页面3</h1>
-<h1>页面3</h1>
-<h1>页面3</h1>
-<h1>页面3</h1>
-<h1>页面3</h1>
-<h1>页面3</h1>
-<h1>页面3</h1>
-<h1>页面3</h1>
-<h1>页面3</h1>
-<h1>页面3</h1>
-<h1>页面3</h1>
-<h1>页面3</h1>
-<h1>页面3</h1>
-<h1>页面3</h1>
-<h1>页面3</h1>
-<h1>页面3</h1>
-<h1>页面3</h1>
-<h1>页面3</h1>
-<h1>页面3</h1>
-<h1>页面3</h1>
-<h1>页面3</h1>
-<h1>页面3</h1>
-<h1>页面3</h1>
-<h1>页面3</h1>
-<h1>页面3</h1>
-<h1>页面3</h1>
-<h1>页面3</h1>
-<h1>页面3</h1>
-<h1>页面3</h1>
-<h1>页面3</h1>
-<h1>页面3</h1>
-<h1>页面3</h1>
-<h1>页面3</h1>
-<h1>页面3</h1>
+<button class="mui-btn" onclick="HuanziFooter.hide();">隐藏底部按钮</button>
+<button class="mui-btn"  onclick="HuanziFooter.show();">显示底部按钮</button>
+<button class="mui-btn"  onclick="HuanziHeader.init();">清空所有头部按钮</button>
+<button class="mui-btn"  onclick="HuanziHeader.hideBack();">隐藏头部返回按钮</button>
+<button class="mui-btn"  onclick="HuanziHeader.showBack();">显示头部返回按钮</button>
+<button class="mui-btn"  onclick="HuanziHeader.appendButton('<a class=\'mui-icon mui-icon-bars mui-pull-right\' onclick=\'mainIframe.window.butFun()\'></a>');">追加头部按钮</button>
+<button class="mui-btn"  onclick="HuanziHeader.removeButton('.mui-icon-bars');">移除头部按钮</button>
+
+<button class="mui-btn">无用按钮</button>
+<button class="mui-btn">无用按钮</button>
+<button class="mui-btn">无用按钮</button>
+<button class="mui-btn">无用按钮</button>
+<button class="mui-btn">无用按钮</button>
+<button class="mui-btn">无用按钮</button>
+<button class="mui-btn">无用按钮</button>
+<button class="mui-btn">无用按钮</button>
+<button class="mui-btn">无用按钮</button>
+<button class="mui-btn">无用按钮</button>
+<button class="mui-btn">无用按钮</button>
+<button class="mui-btn">无用按钮</button>
+<button class="mui-btn">无用按钮</button>
 </body>
+<script>
+    function butFun() {
+        HuanziDialog.toast("头部按钮被点击！")
+    }
+</script>
 </html>

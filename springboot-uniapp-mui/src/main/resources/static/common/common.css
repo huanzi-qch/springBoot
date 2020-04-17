@@ -58,12 +58,12 @@
     left: 0;
     background-image: linear-gradient(to bottom right, #0061ff, #6aa2ff);
     box-shadow: 0 1px 6px #ccc;
-    height: 74px;
 }
 
 .huanzi-header  .statusbar {
     height: 30px;
     width: 100%;
+    display: none;
 }
 
 .huanzi-header .titlebar{
@@ -91,12 +91,39 @@
     text-overflow: ellipsis;
 }
 
-.huanzi-content {
-    position: absolute;
-    top: 74px;
-    bottom: 50px;
+.huanzi-header .progress {
+    position:fixed;
+    height: 2px;
+    background:#ff0000;
+    transition:opacity 500ms linear
+}
+.huanzi-header .progress span {
+    position:absolute;
+    height:2px;
+    -webkit-box-shadow:#b91f1f 1px 0 6px 1px;
+    -webkit-border-radius:100%;
+    opacity:1;
+    width:150px;
+    right:-10px;
+    -webkit-animation:pulse 2s ease-out 0s infinite;
+}
+@-webkit-keyframes pulse {
+    30% {
+        opacity:.5
+    }
+    60% {
+        opacity:0;
+    }
+    100% {
+        opacity:.5
+    }
 }
 
+.huanzi-content {
+    position: absolute;
+    top: 54px;
+    bottom: 50px;
+}
 
 /* 自定义页脚（底部导航栏） */
 .huanzi-footer{
