@@ -9,6 +9,9 @@
         body{
             text-align: center;
         }
+        iframe{
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -30,52 +33,104 @@
 
 <!-- 内容（可滑动区域） -->
 <div class="huanzi-content mui-scroll-wrapper">
-    <div class=" mui-scroll">
+    <!-- 点击立即加载初始url -->
+    <div class=" mui-scroll" th:if="${switchMode} eq '1'">
         <!-- 直接嵌入iframe，且自适应宽高 -->
-        <iframe id="mainIframe" name="mainIframe" frameborder="0" src="/muiwrapper/muiDialog" width="100%" onload="mainIframeLoadFun(this)"></iframe>
+        <iframe id="iframe" name="iframe" frameborder="0" width="100%" onload="iframeLoadFun(this)"></iframe>
+    </div>
+    <!-- 点击立即加载初始url -->
+    <div class=" mui-scroll" th:if="${switchMode} eq '2'">
+        <!-- 直接嵌入iframe，且自适应宽高 -->
+        <iframe id="iframe1" name="iframe1" frameborder="0" width="100%" onload="iframeLoadFun(this)"></iframe>
+        <iframe id="iframe2" name="iframe2" frameborder="0" width="100%" onload="iframeLoadFun(this)"></iframe>
+        <iframe id="iframe3" name="iframe3" frameborder="0" width="100%" onload="iframeLoadFun(this)"></iframe>
+        <iframe id="iframe4" name="iframe4" frameborder="0" width="100%" onload="iframeLoadFun(this)"></iframe>
     </div>
 </div>
 
 <!-- 底部导航栏 -->
 <footer class="huanzi-footer">
-    <div class="huanzi-footer-buttom select" data-url="/muiwrapper/muiDialog">
+    <div class="huanzi-footer-buttom" data-iframe="iframe1" data-url="/muiwrapper/muiDialog">
         <i class="mui-icon mui-icon-phone"></i>
         <p>mui原生</p>
     </div>
-    <div class="huanzi-footer-buttom" data-url="/muiwrapper/dialog">
+    <div class="huanzi-footer-buttom" data-iframe="iframe2" data-url="/muiwrapper/dialog">
         <i class="mui-icon mui-icon-email"></i>
         <p>自定义封装</p>
     </div>
-    <div class="huanzi-footer-buttom" data-url="/muiwrapper/test3">
+    <div class="huanzi-footer-buttom" data-iframe="iframe3" data-url="/muiwrapper/test3">
         <i class="mui-icon mui-icon-chatbubble"></i>
         <p>头尾操作</p>
     </div>
-    <div class="huanzi-footer-buttom" data-url="/muiwrapper/test4">
+    <div class="huanzi-footer-buttom" data-iframe="iframe4" data-url="/muiwrapper/test4">
         <i class="mui-icon mui-icon-weixin"></i>
         <p>页面4</p>
     </div>
 </footer>
 </body>
-<script>
+<script th:inline="javascript">
+    //按钮切换模式
+    let switchMode = [[${switchMode}]];
+
+    //动态获取菜单url，所属iframe，jq对象等
+    let buttoms = [];
+    $(".huanzi-footer-buttom").each(function () {
+        let iframeJqObject = {};
+        if(switchMode === "1"){
+            iframeJqObject = $("#iframe");
+            //修改标签data-iframe值
+            $(this).data("iframe","iframe");
+        }else  if(switchMode === "2"){
+            iframeJqObject = $("#"+$(this).data("iframe"));
+        }
+        let buttomobj = {
+            jqObject:$(this),//按钮jq对象
+            iframeJqObject:iframeJqObject,//所属iframe
+            url:$(this).data("url")//url
+        };
+        buttoms.push(buttomobj);
+    });
+
+    //初始化所有页面
+    // buttoms.forEach((item,index,array)=>{
+    //     item.iframeJqObject[0].src = ctx + item.url;
+    // });
+
+    //默认显示第一个iframe
+    buttoms[0].jqObject.addClass("select");
+    buttoms[0].iframeJqObject[0].src = ctx + buttoms[0].url;
+    buttoms[0].iframeJqObject.show();
+
+
     //自适应高度
     adaptiveHeight();
 
     //底部按钮点击事件
     $(document).on("click", ".huanzi-footer-buttom", function (e) {
-        //iframe跳转新页面
-        $("#mainIframe")[0].src = ctx + $(this).data("url");
-
-        //切换颜色
-        $(".huanzi-footer-buttom").each(function () {
-            $(this).removeClass("select");
+        //iframe动作
+        if(switchMode === "1"){
+            //立即加载初始化url
+            $("#iframe")[0].src = ctx + $(this).data("url");
+        }else if(switchMode === "2"){
+            //判断是否要刷新
+            if(!$("#"+$(this).data("iframe"))[0].src || $(".select").data("iframe") === $(this).data("iframe")){
+                $("#"+$(this).data("iframe"))[0].src = ctx + $(this).data("url");
+            }
+        }
+        //切换按钮、iframe
+        buttoms.forEach((item,index,array)=>{
+            item.jqObject.removeClass("select");
+            item.iframeJqObject.hide();
         });
         $(this).addClass("select");
+        adaptiveHeight();
+        $("#"+$(this).data("iframe")).show();
     });
 
-    //mainIframe onload事件
-    function mainIframeLoadFun(mainIframe) {
+    //iframe onload事件
+    function iframeLoadFun(iframe) {
         //修改标题
-        let $mainFrame=$('#mainIframe');
+        let $mainFrame=$(iframe);
         let title = $mainFrame.contents().attr("title");
 
         $("title").text(title);
@@ -99,7 +154,7 @@
     //自适应高度
     function adaptiveHeight(){
         $(".huanzi-content").css("top",$(".huanzi-header").css("height"));
-        document.getElementById("mainIframe").height = $('.huanzi-content')[0].scrollHeight;
+        document.getElementById($(".select").data("iframe")).height = $('.huanzi-content')[0].scrollHeight;
     }
 
     //h5端默认隐藏
