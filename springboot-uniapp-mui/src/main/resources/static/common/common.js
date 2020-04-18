@@ -208,8 +208,10 @@ var HuanziHeader = {
     /**
      * 右边新增按钮
      */
-    appendButton : function ($html) {
-        window.parent.$(".huanzi-header-right-button-list").append($html);
+    appendButton : function (html) {
+        html = html.replace(/onclick="/,"onclick=\"document.getElementById($('.select').data('iframe')).contentWindow.");
+        html = html.replace(/onclick='/,"onclick=\'document.getElementById($(\".select\").data(\"iframe\")).contentWindow.");
+        window.parent.$(".huanzi-header-right-button-list").append(html);
     },
     /**
      * 删除按钮
@@ -227,7 +229,7 @@ var HuanziFooter = {
     show : function () {
         window.parent.$(".huanzi-footer").show();
         window.parent.$('.huanzi-content').css("bottom","50px");
-        window.parent.document.getElementById("mainIframe").height = window.parent.$('.huanzi-content')[0].scrollHeight;
+        window.parent.document.getElementById(window.parent.$(".select").data("iframe")).height = window.parent.$('.huanzi-content').css("height");;
     },
     /**
      * 隐藏底部按钮组
@@ -235,6 +237,6 @@ var HuanziFooter = {
     hide : function () {
         window.parent.$(".huanzi-footer").hide();
         window.parent.$('.huanzi-content').css("bottom","0");
-        window.parent.document.getElementById("mainIframe").height = window.parent.$('.huanzi-content')[0].scrollHeight;
+        window.parent.document.getElementById(window.parent.$(".select").data("iframe")).height = window.parent.$('.huanzi-content').css("height");;
     }
 };

@@ -33,12 +33,12 @@
                 function muiBackFun(){
                     mui.plusReady(function(){
                         //首页index是不需要返回上一级，直接退出
-                        let indexArray = ["/index/index"];
+                        let indexArray = ["/muiwrapper/muiDialog","/muiwrapper/dialog","/muiwrapper/test3","/muiwrapper/test4"];
 
                         /* 自定义实体返回按钮事件 */
                         let first=null;
                         mui.back = function () {
-                            if ($.inArray(window.location.pathname, indexArray) >= 0) {
+                            if ($.inArray($($(".select").data("iframe"))[0].contentWindow.location.pathname, indexArray) >= 0) {
                                 /* 再按一次退出应用’ */
                                 if (!first) {
                                     first = new Date().getTime();

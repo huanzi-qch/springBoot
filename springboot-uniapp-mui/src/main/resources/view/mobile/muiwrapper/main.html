@@ -23,10 +23,10 @@
     <div class="statusbar"></div>
     <!-- 标题栏 -->
     <div class="titlebar">
-        <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+        <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="display: none;"></a>
         <h1 class="mui-title"></h1>
         <div class="huanzi-header-right-button-list">
-            <a class="mui-icon mui-icon-bars mui-pull-right"></a>
+
         </div>
     </div>
 </header>
@@ -108,13 +108,14 @@
     //底部按钮点击事件
     $(document).on("click", ".huanzi-footer-buttom", function (e) {
         //iframe动作
+        let $iframe = $("#"+$(this).data("iframe"));
         if(switchMode === "1"){
             //立即加载初始化url
             $("#iframe")[0].src = ctx + $(this).data("url");
         }else if(switchMode === "2"){
             //判断是否要刷新
-            if(!$("#"+$(this).data("iframe"))[0].src || $(".select").data("iframe") === $(this).data("iframe")){
-                $("#"+$(this).data("iframe"))[0].src = ctx + $(this).data("url");
+            if(!$iframe[0].src || $(".select").data("iframe") === $(this).data("iframe")){
+                $iframe[0].src = ctx + $(this).data("url");
             }
         }
         //切换按钮、iframe
@@ -124,7 +125,11 @@
         });
         $(this).addClass("select");
         adaptiveHeight();
-        $("#"+$(this).data("iframe")).show();
+        //修改标题
+        let title = $iframe.contents().attr("title");
+        $("title").text(title);
+        $(".mui-title").text(title);
+        $iframe.show();
     });
 
     //iframe onload事件
@@ -154,7 +159,7 @@
     //自适应高度
     function adaptiveHeight(){
         $(".huanzi-content").css("top",$(".huanzi-header").css("height"));
-        document.getElementById($(".select").data("iframe")).height = $('.huanzi-content')[0].scrollHeight;
+        document.getElementById($(".select").data("iframe")).height = $('.huanzi-content').css("height");;
     }
 
     //h5端默认隐藏

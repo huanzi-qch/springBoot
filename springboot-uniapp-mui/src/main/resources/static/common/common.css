@@ -70,6 +70,7 @@
     padding-right: 10px;
     padding-left: 10px;
     border-bottom: 0;
+    min-height: 55px;
 }
 
 .huanzi-header .titlebar a {
