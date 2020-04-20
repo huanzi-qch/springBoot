@@ -2,6 +2,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:fragment="static">
+    <!-- 顶部进度条开始 -->
+    <head>
+        <script>
+            //顶部进度条开始
+            if(window.location.pathname !== "/muiwrapper/main"){
+                window.parent.NProgress.start();
+            }
+        </script>
+    </head>
+
     <!-- 获取应用路径 -->
     <head>
         <script th:inline="javascript">

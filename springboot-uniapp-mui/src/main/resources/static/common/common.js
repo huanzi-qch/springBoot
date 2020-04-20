@@ -238,10 +238,5 @@ var HuanziFooter = {
     }
 };
 
-//顶部进度条开始
-if(window.location.pathname !== "/muiwrapper/main"){
-    window.parent.NProgress.start();
-}
-
 //先初始化自定义弹窗
 HuanziDialog.init();
