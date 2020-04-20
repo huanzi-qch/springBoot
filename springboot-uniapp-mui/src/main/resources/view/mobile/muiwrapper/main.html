@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title></title>
     <script th:replace="common/head::static"></script>
+    <script th:src="@{/common/nprogress/nprogress.js}"></script>
+    <link rel='stylesheet' th:href="@{/common/nprogress/nprogress.css}"/>
     <style>
         body{
             text-align: center;
@@ -17,8 +19,6 @@
 <body>
 <!-- 头部 -->
 <header class="huanzi-header">
-    <!-- 顶部进度条 -->
-    <div class="progress"><span></span></div>
     <!-- 系统状态栏占高 -->
     <div class="statusbar"></div>
     <!-- 标题栏 -->
@@ -141,19 +141,8 @@
         $("title").text(title);
         $(".mui-title").text(title);
 
-        //顶部进度条
-        $({property: 0}).animate({property: 100}, {
-            duration: 3000,
-            step: function() {
-                var percentage = Math.round(this.property);
-
-                $('.huanzi-header .progress').css('width',  percentage+"%");
-
-                if(percentage == 100) {
-                    $('.huanzi-header .progress').css('width',"0%");//完成，隐藏进度条
-                }
-            }
-        });
+        //顶部进度条结束
+        window.NProgress.done();
     }
 
     //自适应高度

@@ -181,9 +181,6 @@ var HuanziDialog = {
     }
 };
 
-//先初始化自定义弹窗
-HuanziDialog.init();
-
 //操作头部方法
 var HuanziHeader = {
     /**
@@ -240,3 +237,11 @@ var HuanziFooter = {
         window.parent.document.getElementById(window.parent.$(".select").data("iframe")).height = window.parent.$('.huanzi-content').css("height");;
     }
 };
+
+//顶部进度条开始
+if(window.location.pathname !== "/muiwrapper/main"){
+    window.parent.NProgress.start();
+}
+
+//先初始化自定义弹窗
+HuanziDialog.init();
