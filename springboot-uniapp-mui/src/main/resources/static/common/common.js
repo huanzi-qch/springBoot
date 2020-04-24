@@ -187,19 +187,35 @@ var HuanziHeader = {
      * 左右无按钮
      */
     init : function () {
-        HuanziHeader.hideBack();
+        HuanziHeader.hideBackButton();
         window.parent.$(".huanzi-header-right-button-list").empty();
+    },
+    /**
+     * 显示头部
+     */
+    show : function(){
+        window.parent.$(".huanzi-header").show();
+        window.parent.$(".huanzi-content").css("top",window.parent.$(".huanzi-header").css("height"));
+        window.parent.document.getElementById(window.parent.$(".select").data("iframe")).height = window.parent.$('.huanzi-content').css("height");;
+    },
+    /**
+     * 隐藏头部
+     */
+    hide : function(){
+        window.parent.$(".huanzi-header").hide();
+        window.parent.$('.huanzi-content').css("top","0");
+        window.parent.document.getElementById(window.parent.$(".select").data("iframe")).height = window.parent.$('.huanzi-content').css("height");;
     },
     /**
      * 显示左边返回按钮
      */
-    showBack : function () {
+    showBackButton : function () {
         window.parent.$(".mui-action-back").show();
     },
     /**
      * 隐藏左边返回按钮
      */
-    hideBack : function () {
+    hideBackButton : function () {
         window.parent.$(".mui-action-back").hide();
     },
     /**
