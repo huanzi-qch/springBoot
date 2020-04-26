@@ -26,7 +26,8 @@
 
     <!-- 引入mui框架 -->
     <head>
-        <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"/>
+        <meta name="viewport-fit" content="viewport-fit=cover">
+        <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"/>
         <link rel='stylesheet' th:href="@{/common/mui/css/mui.css}"/>
         <script th:src="@{/common/mui/js/mui.js}"></script>
         <script type="text/javascript" charset="utf-8">
@@ -61,9 +62,15 @@
                                         plus.runtime.quit();
                                     }
                                 }
+                                //显示返回按钮，显示底部按钮
+                                HuanziHeader.hideBackButton();
+                                HuanziFooter.show();
                             } else {
                                 /* 返回上一页 */
                                 plus.webview.currentWebview().back();
+                                //显示返回按钮，隐藏底部按钮
+                                HuanziHeader.showBackButton();
+                                HuanziFooter.hide();
                             }
                         };
                     });

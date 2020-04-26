@@ -9,10 +9,16 @@
         body{
             text-align: center;
         }
+
+        .mui-btn{
+            width: 50%;
+            margin: 10px auto;
+        }
     </style>
 </head>
 <body>
-<a href="https://www.baidu.com">跳转百度</a>
+<button class="mui-btn" onclick="window.location.href = 'https://www.baidu.com';">跳转百度</button>
+<button class="mui-btn" onclick="barcode()">扫描二维码</button>
 <h1>页面4</h1>
 <h1>页面4</h1>
 <h1>页面4</h1>
@@ -62,4 +68,5 @@
 <h1>页面4</h1>
 <h1>最后一个</h1>
 </body>
+<script th:src="@{/barcode/js/barcode.js}"></script>
 </html>

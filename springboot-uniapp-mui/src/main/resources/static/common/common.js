@@ -1,3 +1,21 @@
+/**
+ * 封装通用方法
+ */
+var HuanziCommonFun = {
+    //判断字符串是否为json格式
+    isJSON : function (str) {
+        if (typeof str == 'string') {
+            try {
+                JSON.parse(str);
+                return true;
+            } catch(e) {
+                console.log(e);
+                return false;
+            }
+        }
+    }
+};
+
 /* 封装自定义弹窗 */
 var HuanziDialog = {
     mask: null,//mui遮阴层对象
@@ -181,7 +199,9 @@ var HuanziDialog = {
     }
 };
 
-//操作头部方法
+/**
+ * 操作头部方法
+ */
 var HuanziHeader = {
     /**
      * 左右无按钮
@@ -234,7 +254,9 @@ var HuanziHeader = {
     }
 };
 
-//操作底部按钮方法
+/**
+ * 操作底部按钮方法
+ */
 var HuanziFooter = {
     /**
      * 显示底部按钮组
