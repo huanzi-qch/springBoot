@@ -118,3 +118,14 @@ function barcode() {
         }, false);
     }
 }
+
+//打开新页面
+function openWindow() {
+    let backImageUrl = window.location.origin;
+    mui.openWindow({
+        url:backImageUrl + '/muiwrapper/muiDialog',
+        extras:{
+            name:'mui'  //扩展参数
+        }
+    });
+}

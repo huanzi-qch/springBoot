@@ -7409,7 +7409,7 @@ Function.prototype.bind = Function.prototype.bind || function(to) {
 	};
 
 })(mui, window);
-//扩展mui.showLoading
+//huanzi修改：扩展mui.showLoading
 (function($, window) {
 	//显示加载框
 	$.showLoading = function(message,type) {

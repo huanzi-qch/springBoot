@@ -23,48 +23,33 @@
     <div class="statusbar"></div>
     <!-- 标题栏 -->
     <div class="titlebar">
+        <!-- 左边返回按钮 -->
         <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="display: none;"></a>
         <h1 class="mui-title"></h1>
-        <div class="huanzi-header-right-button-list">
-
-        </div>
+        <!-- 右边按钮集合 -->
+        <div class="huanzi-header-right-button-list"></div>
     </div>
 </header>
 
 <!-- 内容（可滑动区域） -->
 <div class="huanzi-content mui-scroll-wrapper">
     <!-- 点击立即加载初始url -->
-    <div class=" mui-scroll" th:if="${switchMode} eq '1'">
+    <div id="refreshContainer"  class=" mui-scroll" th:if="${switchMode} eq '1'">
         <!-- 直接嵌入iframe，且自适应宽高 -->
-        <iframe id="iframe" name="iframe" frameborder="0" width="100%" onload="iframeLoadFun(this)"></iframe>
+        <iframe id="iframe" name="iframe" frameborder="0" width="100%"></iframe>
     </div>
-    <!-- 点击立即加载初始url -->
+    <!-- 切换仅回显页面，在当前页面点击才加载 -->
     <div class=" mui-scroll" th:if="${switchMode} eq '2'">
         <!-- 直接嵌入iframe，且自适应宽高 -->
-        <iframe id="iframe1" name="iframe1" frameborder="0" width="100%" onload="iframeLoadFun(this)"></iframe>
-        <iframe id="iframe2" name="iframe2" frameborder="0" width="100%" onload="iframeLoadFun(this)"></iframe>
-        <iframe id="iframe3" name="iframe3" frameborder="0" width="100%" onload="iframeLoadFun(this)"></iframe>
-        <iframe id="iframe4" name="iframe4" frameborder="0" width="100%" onload="iframeLoadFun(this)"></iframe>
+        <iframe th:each="buttom,iterStat : ${buttomList}" th:id="'iframe' + ${iterStat.count}" th:name="'iframe' + ${iterStat.count}" frameborder="0" width="100%"></iframe>
     </div>
 </div>
 
 <!-- 底部导航栏 -->
 <footer class="huanzi-footer">
-    <div class="huanzi-footer-buttom" data-iframe="iframe1" data-url="/muiwrapper/muiDialog">
-        <i class="mui-icon mui-icon-phone"></i>
-        <p>mui原生</p>
-    </div>
-    <div class="huanzi-footer-buttom" data-iframe="iframe2" data-url="/muiwrapper/dialog">
-        <i class="mui-icon mui-icon-email"></i>
-        <p>自定义封装</p>
-    </div>
-    <div class="huanzi-footer-buttom" data-iframe="iframe3" data-url="/muiwrapper/test3">
-        <i class="mui-icon mui-icon-chatbubble"></i>
-        <p>头尾操作</p>
-    </div>
-    <div class="huanzi-footer-buttom" data-iframe="iframe4" data-url="/muiwrapper/test4">
-        <i class="mui-icon mui-icon-weixin"></i>
-        <p>页面4</p>
+    <div class="huanzi-footer-buttom" th:each="buttom,iterStat : ${buttomList}" th:data-iframe="'iframe' + ${iterStat.count}" th:data-url="${buttom.url}">
+        <i th:class="'mui-icon ' + ${buttom.icon}"></i>
+        <p th:text="${buttom.text}"></p>
     </div>
 </footer>
 </body>
@@ -92,15 +77,23 @@
     });
 
     //初始化所有页面
-    // buttoms.forEach((item,index,array)=>{
-    //     item.iframeJqObject[0].src = ctx + item.url;
-    // });
+    buttoms.forEach((item,index)=>{
+        item.iframeJqObject[0].src = ctx + item.url;
+        item.iframeJqObject[0].onload = function () {
+            //需要显示的页面进行标题修改等、其他不需要
+            if(index === 0){
+                iframeLoadFun(item.iframeJqObject[0]);
+            }
+            //重写onload事件
+            item.iframeJqObject[0].onload = function (e) {
+                iframeLoadFun(item.iframeJqObject[0]);
+            };
+        }
+    });
 
     //默认显示第一个iframe
     buttoms[0].jqObject.addClass("select");
-    buttoms[0].iframeJqObject[0].src = ctx + buttoms[0].url;
     buttoms[0].iframeJqObject.show();
-
 
     //自适应高度
     adaptiveHeight();
@@ -158,6 +151,23 @@
 
         //自适应高度
         adaptiveHeight();
+    });
+
+    mui.init({
+        pullRefresh : {
+            container:"#refreshContainer",//下拉刷新容器标识，querySelector能定位的css选择器均可，比如：id、.class等
+            down : {
+                style:'circle',//必选，下拉刷新样式，目前支持原生5+ ‘circle’ 样式
+                color:'#2BD009', //可选，默认“#2BD009” 下拉刷新控件颜色
+                height:'50px',//可选,默认50px.下拉刷新控件的高度,
+                range:'100px', //可选 默认100px,控件可下拉拖拽的范围
+                offset:'0px', //可选 默认0px,下拉刷新控件的起始位置
+                auto: false,//可选,默认false.首次加载自动上拉刷新一次
+                callback :function(){ //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
+                    console.log("下拉刷新");
+                }
+            }
+        }
     });
 </script>
 </html>

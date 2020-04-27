@@ -2,6 +2,14 @@
  * 封装通用方法
  */
 var HuanziCommonFun = {
+    //判断是否为main页面
+    isMain: function(){
+        return isMain();
+    },
+    //获取当前iframe的contentWindow
+    getIframeContentWindow:function(){
+       return  window.parent.document.getElementById(window.parent.$(".select").data("iframe")).contentWindow;
+    },
     //判断字符串是否为json格式
     isJSON : function (str) {
         if (typeof str == 'string') {
@@ -130,6 +138,13 @@ var HuanziDialog = {
      * @param callback 点击确认的回调
      */
     alert: function (title, message, callback) {
+        //huanzi修改：非main页面，调用父类
+        if(!HuanziCommonFun.isMain()){
+            return window.parent.HuanziDialog.alert(title, message, function () {
+                //回调执行子类方法
+                HuanziCommonFun.getIframeContentWindow().eval(callback());
+            });
+        }
         let $html = $("<div class=\"mui-popup mui-popup-in\" style=\"display: block;\">" +
             "<div class=\"mui-popup-inner\">" +
             "   <div class=\"mui-popup-title\">" + title + "</div>" +
@@ -157,6 +172,13 @@ var HuanziDialog = {
      * @param callback 点击确认的回调
      */
     confirm: function (title, message, callback) {
+        //huanzi修改：非main页面，调用父类
+        if(!HuanziCommonFun.isMain()){
+            return window.parent.HuanziDialog.confirm(title, message, function () {
+                //回调执行子类方法
+                HuanziCommonFun.getIframeContentWindow().eval(callback());
+            });
+        }
         let $html = $("<div class=\"mui-popup mui-popup-in\" style=\"display: block;\">" +
             "<div class=\"mui-popup-inner\">" +
             "   <div class=\"mui-popup-title\">" + title + "</div>" +
@@ -189,13 +211,89 @@ var HuanziDialog = {
      */
     toast: function (message, speed) {
         speed = speed ? speed : 2000;
-        let $html = $("<div class=\"huanzi-dialog huanzi-dialog-center\" style=\"width: 45%;height: 20%;opacity: 1;z-index: 999;border-radius: 5px;background-color: rgba(0, 0, 0, 0.6);\">" +
-            "    <p style=\" position: relative; top: 50%; left: 50%; transform: translate3d(-50%, -50%, 0) scale(1); color: #fff; font-size: 20px; \">" + message + "</p>" +
-            "</div>");
-        $("body").append($html);
-        setTimeout(function () {
-            $html.remove();
+        //自定义样式
+        // let $html = $("<div class=\"huanzi-dialog huanzi-dialog-center\" style=\"width: 45%;height: 20%;opacity: 1;z-index: 999;border-radius: 5px;background-color: rgba(0, 0, 0, 0.6);\">" +
+        //     "    <p style=\" position: relative; top: 50%; left: 50%; transform: translate3d(-50%, -50%, 0) scale(1); color: #fff; font-size: 20px; \">" + message + "</p>" +
+        //     "</div>");
+        // $("body").append($html);
+        // setTimeout(function () {
+        //     $html.remove();
+        // }, speed);
+
+        //mui样式
+        let toast = document.createElement('div');
+        toast.classList.add('mui-toast-container');
+        toast.innerHTML = '<div class="' + 'mui-toast-message' + '">' + message + '</div>';
+        toast.addEventListener('webkitTransitionEnd', function() {
+            if (!toast.classList.contains('mui-active')) {
+                toast.parentNode.removeChild(toast);
+                toast = null;
+            }
+        });
+        //点击则自动消失
+        toast.addEventListener('click', function() {
+            toast.parentNode.removeChild(toast);
+            toast = null;
+        });
+        document.body.appendChild(toast);
+        toast.offsetHeight;
+        toast.classList.add('mui-active');
+        setTimeout(function() {
+            toast && toast.classList.remove('mui-active');
         }, speed);
+
+        return {
+            isVisible: function() {return !!toast;}
+        }
+    },
+    /**
+     * 显示加载框
+     * @param message
+     */
+    showLoading : function(message) {
+        var html = '';
+        html += '<i class="mui-spinner mui-spinner-white"></i>';
+        html += '<p class="text">' + (message || "数据加载中") + '</p>';
+
+        //遮罩层
+        var mask=document.getElementsByClassName("mui-show-loading-mask");
+        if(mask.length==0){
+            mask = document.createElement('div');
+            mask.classList.add("mui-show-loading-mask");
+            document.body.appendChild(mask);
+            mask.addEventListener("touchmove", function(e){e.stopPropagation();e.preventDefault();});
+        }else{
+            mask[0].classList.remove("mui-show-loading-mask-hidden");
+        }
+        //加载框
+        var toast=document.getElementsByClassName("mui-show-loading");
+        if(toast.length==0){
+            toast = document.createElement('div');
+            toast.classList.add("mui-show-loading");
+            toast.classList.add('loading-visible');
+            document.body.appendChild(toast);
+            toast.innerHTML = html;
+            toast.addEventListener("touchmove", function(e){e.stopPropagation();e.preventDefault();});
+        }else{
+            toast[0].innerHTML = html;
+            toast[0].classList.add("loading-visible");
+        }
+    },
+
+    /**
+     * 隐藏加载框
+     * @param callback
+     */
+    hideLoading : function(callback) {
+        var mask=document.getElementsByClassName("mui-show-loading-mask");
+        var toast=document.getElementsByClassName("mui-show-loading");
+        if(mask.length>0){
+            mask[0].classList.add("mui-show-loading-mask-hidden");
+        }
+        if(toast.length>0){
+            toast[0].classList.remove("loading-visible");
+            callback && callback();
+        }
     }
 };
 

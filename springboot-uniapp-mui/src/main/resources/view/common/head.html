@@ -5,8 +5,12 @@
     <!-- 顶部进度条开始 -->
     <head>
         <script>
+            //是否为main页面
+            function isMain() {
+                return window.location.pathname === "/muiwrapper/main";
+            }
             //顶部进度条开始
-            if(window.location.pathname !== "/muiwrapper/main"){
+            if(!isMain()){
                 window.parent.NProgress.start();
             }
         </script>
