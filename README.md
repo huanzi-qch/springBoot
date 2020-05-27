@@ -4,6 +4,12 @@ SpringBoot用的是2.1.0.RELEASE，Demo代码主要参照官方文档，以及�
 这里的测试例子基本上跟博客的一样，没什么修改，大家看博客就好了<br/>
 具体介绍请看我的博客[《SpringBoot系列》](https://www.cnblogs.com/huanzi-qch/category/1355280.html) <br/>
 
+QQ群<br/>
+有事请加群，有问题进群大家一起交流！
+QQ群名：Java交流群-huanzi-qch
+QQ群号：1015379123
+![](https://files-cdn.cnblogs.com/files/huanzi-qch/QQ.bmp) 
+
 捐献<br/>
 请注意，作者五行缺钱，如果喜欢这个项目，请随意打赏！
 
