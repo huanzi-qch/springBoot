@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>基于MUI封装常用弹窗</title>
     <script th:replace="common/head::static"></script>
+    <!-- 引入自定义键盘 -->
+    <link rel='stylesheet' th:href="@{/common/keyboard/keyboard.css}"/>
+    <script th:src="@{/common/keyboard/keyboard.js}"></script>
     <style>
         body{
             text-align: center;
@@ -25,7 +28,20 @@
     <button class="mui-btn"  onclick="HuanziDialog.alert('系统提示','我是警告框！',function() {console.log('你已确认警告！')})">警告框</button>
     <button class="mui-btn"  onclick="HuanziDialog.confirm('系统提示','确认要XXX吗？',function() {HuanziDialog.toast('你点击了确认！');console.log('很好，你点击了确认！')})">确认框</button>
     <button class="mui-btn"  onclick="HuanziDialog.toast('提交成功')">自动消失提示框</button>
-
+    <input type="text"
+           data-type="1"
+           maxlength="15"
+           data-assignEventNode="buyMoney"
+           class=" libh_input libh_key_board  mui-btn"
+           style="width: 50%"
+           placeholder="点击打开自定义键盘"
+           readonly
+           autocomplete="off"
+           onclick="window.keyBoard({type: 1,eventNode:this})"
+    >
+    <button class="mui-btn" onclick="window.location.href = 'https://www.baidu.com';">跳转百度</button>
+    <button class="mui-btn" onclick="barcode()">扫描二维码</button>
+    <button class="mui-btn" onclick="openWindow()">打开新页面</button>
     <button class="mui-btn">无用按钮</button>
     <button class="mui-btn">无用按钮</button>
     <button class="mui-btn">无用按钮</button>
@@ -62,4 +78,5 @@
         </div>
     </div>
 </body>
+<script th:src="@{/barcode/js/barcode.js}"></script>
 </html>

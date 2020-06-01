@@ -50,7 +50,7 @@ public class MuiWrapperController {
         ArrayList arrayList = new ArrayList<>();
         try {
             //从配置文件读取，有编码问题，我这里先不管了，直接赋值
-            buttomList = "[{\"text\":\"mui原生\",\"icon\":\"mui-icon-phone\",\"url\":\"/muiwrapper/muiDialog\"},{\"text\":\"自定义封装\",\"icon\":\"mui-icon-email\",\"url\":\"/muiwrapper/dialog\"},{\"text\":\"头尾操作\",\"icon\":\"mui-icon-chatbubble\",\"url\":\"/muiwrapper/test3\"},{\"text\":\"页面4\",\"icon\":\"mui-icon-weixin\",\"url\":\"/muiwrapper/test4\"}]";
+            buttomList = "[{\"text\":\"mui原生\",\"icon\":\"mui-icon-phone\",\"url\":\"/muiwrapper/muiDialog\"},{\"text\":\"自定义封装\",\"icon\":\"mui-icon-email\",\"url\":\"/muiwrapper/dialog\"},{\"text\":\"头尾操作\",\"icon\":\"mui-icon-chatbubble\",\"url\":\"/muiwrapper/test3\"},{\"text\":\"页面切换\",\"icon\":\"mui-icon-weixin\",\"url\":\"/muiwrapper/test4\"}]";
             arrayList = new ObjectMapper().readValue(buttomList, ArrayList.class);
         } catch (IOException e) {
             System.out.println(e.getMessage());

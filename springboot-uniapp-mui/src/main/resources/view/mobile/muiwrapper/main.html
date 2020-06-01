@@ -12,7 +12,8 @@
             text-align: center;
         }
         iframe{
-            display: none;
+            right: -100%;
+            position: absolute;
         }
     </style>
 </head>
@@ -24,7 +25,7 @@
     <!-- 标题栏 -->
     <div class="titlebar">
         <!-- 左边返回按钮 -->
-        <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="display: none;"></a>
+        <a class="huanzi-header-back mui-icon mui-icon-left-nav mui-pull-left" style="display: none;"></a>
         <h1 class="mui-title"></h1>
         <!-- 右边按钮集合 -->
         <div class="huanzi-header-right-button-list"></div>
@@ -93,7 +94,7 @@
 
     //默认显示第一个iframe
     buttoms[0].jqObject.addClass("select");
-    buttoms[0].iframeJqObject.show();
+    showIframe(buttoms[0].iframeJqObject);
 
     //自适应高度
     adaptiveHeight();
@@ -114,7 +115,7 @@
         //切换按钮、iframe
         buttoms.forEach((item,index,array)=>{
             item.jqObject.removeClass("select");
-            item.iframeJqObject.hide();
+            hideIframe(item.iframeJqObject)
         });
         $(this).addClass("select");
         adaptiveHeight();
@@ -122,8 +123,18 @@
         let title = $iframe.contents().attr("title");
         $("title").text(title);
         $(".mui-title").text(title);
-        $iframe.show();
+        showIframe($iframe);
     });
+
+    //切换iframe效果：显示
+    function showIframe($iframe) {
+        $iframe.animate({right:"0%"},"fast");
+    }
+
+    //切换iframe效果：隐藏
+    function hideIframe($iframe) {
+        $iframe.css("right","-100%");
+    }
 
     //iframe onload事件
     function iframeLoadFun(iframe) {

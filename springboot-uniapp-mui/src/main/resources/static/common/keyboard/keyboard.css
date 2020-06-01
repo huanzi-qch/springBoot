@@ -1,0 +1,351 @@
+/* 键盘 */
+#libh_key_board {
+    background: #E6E6E6;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 10000;
+    overflow: hidden;
+}
+#libh_key_board table {
+    table-layout: fixed;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+#libh_key_board table td a {
+    display: block;
+    font-size: 24px;
+    text-align: center;
+    color: #666;
+    background: #FFF;
+    border: 1px solid #E6E6E6;
+    text-decoration: none;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    height: 50px;
+    line-height: 50px;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+#libh_key_board table td svg {
+    height: 42px;
+    width: 42px;
+    margin: 4px auto 0;
+}
+#libh_key_board table td .font_style {
+    font-size: 20px;
+    background: #E6E6E6;
+}
+#libh_key_board.number_up_fade {
+    transform: translate(0, 0);
+    animation: upFade .3s ease-in;
+}
+#libh_key_board.number_down_fade {
+    transform: translate(0, 201px);
+    animation: downFade .3s ease-in;
+}
+
+@keyframes upFade {
+    0% {
+        transform: translate(0, 201px);
+    }
+    100% {
+        transform: translate(0, 0);
+    }
+}
+@keyframes downFade {
+    0% {
+        transform: translate(0, 0);
+    }
+    100% {
+        transform: translate(0, 201px);
+    }
+}
+
+/****支付密码键盘******/
+#libh_key_board.password_popup {
+    position: static;
+}
+#libh_key_board.password_popup .libh_key_board_pop {
+    background: rgba(0, 0, 0, 0.3);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    overflow: hidden;
+}
+#libh_key_board.password_popup .libh_cipher_box {
+    background: #FFF;
+    position: fixed;
+    bottom: 201px;
+    width: 100%;
+    height: 142px;
+    z-index: 10000;
+    overflow: hidden;
+}
+#libh_key_board.password_popup .libh_cipher_box .back_btn{
+    text-align: center;
+    height: 40px;
+    line-height: 40px;
+    border-bottom: 1px solid #f2f2f2;
+    color: #666;
+    font-size: 16px;
+    position: relative;
+}
+#libh_key_board.password_popup .libh_cipher_box .back_btn .close_btn {
+    width: 40px;
+    height: 40px;
+    background:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAACkSURBVEhLtVbbDYAgDGQkR+ID9ncDpUQSDFB6ejUh8eMeoddaQ0oplnOWcwTSI1qPZgzyknO+WCZNvGmKQXVjmCy1GCZbjS1AycfMNQM7M5iDEBDsqwAWogWjdr0m8Fu8Oc+EaOKKCWVmlpkwBnLIpi8L3WBSc16JXEN2bVNLK1ow00FDiAi2msEEhPNFXJt4+OO2W9eu20y9CWsfr0wkWNfflhvM4oyIxh/FYQAAAABJRU5ErkJggg==") no-repeat center;
+    background-size: 12px;
+    position:absolute;
+    right:0;
+    top:0;
+    cursor: pointer;
+}
+#libh_key_board.password_popup .libh_cipher_box .libh_cipher_box_content {
+    padding: 17px 20px 0 20px;
+}
+#libh_key_board.password_popup .libh_cipher_box .libh_cipher_box_content td a {
+    height: 38px;
+    line-height: 52px;
+    border: 1px solid #E6E6E6;
+    border-left: none;
+    border-radius: 0;
+    font-weight: bold;
+}
+#libh_key_board.password_popup .libh_cipher_box .libh_cipher_box_content td:first-child a {
+    border-left: 1px solid #E6E6E6;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+#libh_key_board.password_popup .libh_cipher_box .libh_cipher_box_content td:last-child a {
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+#libh_key_board.password_popup .password_table {
+    background: #E6E6E6;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 10000;
+    overflow: hidden;
+}
+#libh_key_board.password_popup.password_up_fade {
+    display: block;
+    /* transform: translate(0, 0);
+    animation: passwordUpFade .3s ease-in; */
+}
+#libh_key_board.password_popup.password_down_fade {
+    /* transform: translate(0, 343px);
+    animation: passwordDownFade .3s ease-in; */
+    display: none;
+}
+
+@keyframes passwordUpFade {
+    0% {
+        transform: translate(0, 343px);
+    }
+    100% {
+        transform: translate(0, 0);
+    }
+}
+@keyframes passwordDownFade {
+    0% {
+        transform: translate(0, 0);
+    }
+    100% {
+        transform: translate(0, 343px);
+    }
+}
+
+#libh_key_board.routine_board {
+    width: 100%;
+    margin: 0 auto;
+    font-size: 16px;
+    border-radius: 2px;
+    padding-top: 0.3em;
+    background-color: #e5e6e8;
+    user-select: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    pointer-events: auto;
+}
+#libh_key_board.routine_board p {
+    width: 99%;
+    margin: 0 auto;
+    /* height: 45px; */
+    margin-bottom: 0.3em;
+    display: flex;
+    display: -webkit-box;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+}
+#libh_key_board.routine_board p i {
+    display: block;
+    margin: 0 0.5%;
+    height: 34px;
+    line-height: 34px;
+    font-style: normal;
+    font-size: 16px;
+    border-radius: 3px;
+    width: 44px;
+    background-color: #fff;
+    text-align: center;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 0;
+    -webkit-box-flex: 1;
+}
+#libh_key_board.routine_board p i:active {
+    /* background-color: darken(#ccc, 10%); */
+}
+#libh_key_board.routine_board .tab-upper {
+    width: 50px;
+    margin: 0 1%;
+    background: #cccdd0;
+    color: #fff;
+    font-size: 16px;
+    width: 60px;
+}
+#libh_key_board.routine_board .key-delete {
+    width: 50px;
+    margin: 0 1%;
+    color: #827f7f;
+    background: #d7d7d8;
+    font-size: 16px;
+    width: 60px;
+}
+#libh_key_board.routine_board .symbol_del {
+    color: #827f7f;
+    background: #d7d7d8;
+    font-size: 16px;
+}
+#libh_key_board.routine_board .tab-num {
+    font-size: 16px;
+    background: #dedede;
+    color: #5a5959;
+    width: 62px;
+}
+/* #libh_key_board.routine_board .tab-point {
+      width: 20px;
+} */
+#libh_key_board.routine_board .tab-blank {
+    width: 189px;
+    font-size: 16px;
+    padding: 0 15px;
+    color: #5a5959;
+}
+/* #libh_key_board.routine_board .tab-symbol {
+      width: 20px;
+      font-size: 18px;
+} */
+#libh_key_board.routine_board .tab-enter {
+    font-size: 16px;
+    width: 99px;
+    background: #FF7F24;
+    color: #fff;
+}
+#libh_key_board.routine_board .board_bottom_content p:nth-child(2) {
+    width: 88%;
+}
+#libh_key_board.routine_board .board_main_content .line_invagination {
+    padding: 0 17px;
+}
+#libh_key_board.routine_board .board_main_content .line_invagination02 {
+    padding: 0 34px;
+}
+#libh_key_board.routine_board .board_main_content .line_invagination02 i:first-child {
+    width: 50px;
+}
+#libh_key_board.routine_board .board_main_content .line_invagination02 i:last-child {
+    width: 50px;
+}
+#libh_key_board.routine_board .board_main_content .tab-upper svg {
+    height: 21px;
+    width: auto;
+    margin: 8px auto 0;
+}
+#libh_key_board.routine_board .board_main_content .tab-lower svg {
+    height: 21px;
+    width: auto;
+    margin: 8px auto 0;
+}
+#libh_key_board.routine_board .board_main_content .key-delete svg {
+    height: 27px;
+    width: auto;
+    margin: 4px auto 0;
+}
+#libh_key_board.routine_board .board_main_content .symbol_del svg {
+    height: 27px;
+    width: auto;
+    margin: 4px auto 0;
+}
+
+#libh_key_board.routine_board.routine_up_fade {
+    /* display: block; */
+    transform: translate(0, 0);
+    animation: routineUpFade .3s ease-in;
+}
+#libh_key_board.routine_board.routine_down_fade {
+    transform: translate(0, 199px);
+    animation: routineDownFade .3s ease-in;
+    /* display: none; */
+}
+
+@keyframes routineUpFade {
+    0% {
+        transform: translate(0, 199px);
+    }
+    100% {
+        transform: translate(0, 0);
+    }
+}
+@keyframes routineDownFade {
+    0% {
+        transform: translate(0, 0);
+    }
+    100% {
+        transform: translate(0, 199px);
+    }
+}
+
+.libh_input {
+    color: #999 !important;
+    position: relative;
+}
+.libh_input.libh_change_key {
+    color: #666 !important;
+}
+.libh_input::before {
+    content: attr(placeholder);
+}
+.libh_input.libh_change_key::before {
+    content: attr(data-content);
+}
+.libh_input.libh_change_key.libh_input_cursor::after {
+    content: '';
+    border-left: 1.5px solid #666;
+    height: 45%;
+    opacity: 1;
+    animation: fadeToggleInput 1s infinite;
+}
+@keyframes fadeToggleInput {
+    0% {
+        opacity: 1;
+    }
+    75% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}

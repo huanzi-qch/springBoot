@@ -327,14 +327,23 @@ var HuanziHeader = {
     /**
      * 显示左边返回按钮
      */
-    showBackButton : function () {
-        window.parent.$(".mui-action-back").show();
+    showBackButton : function (callback) {
+        window.parent.$(".huanzi-header-back").show();
+        if(callback){
+            window.parent.$(".huanzi-header-back")[0].addEventListener('tap', function (event) {
+                callback();
+            });
+        }else{
+            window.parent.$(".huanzi-header-back")[0].addEventListener('tap', function (event) {
+                mui.back();
+            });
+        }
     },
     /**
      * 隐藏左边返回按钮
      */
     hideBackButton : function () {
-        window.parent.$(".mui-action-back").hide();
+        window.parent.$(".huanzi-header-back").hide();
     },
     /**
      * 右边新增按钮
@@ -349,6 +358,13 @@ var HuanziHeader = {
      */
     removeButton : function (select) {
         window.parent.$(select).remove();
+    },
+    /**
+     * 修改标题
+     */
+    title : function (title) {
+        window.parent.$("title").text(title);
+        window.parent.$(".mui-title").text(title);
     }
 };
 

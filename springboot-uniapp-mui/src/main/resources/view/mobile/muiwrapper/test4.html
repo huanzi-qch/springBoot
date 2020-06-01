@@ -1,73 +1,306 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>页面4</title>
+    <title>页面切换</title>
     <script th:replace="common/head::static"></script>
     <style>
-        body{
+        html,
+        body {
+            background-color: #efeff4;
+        }
+        .mui-views,
+        .mui-view,
+        .mui-pages,
+        .mui-page,
+        .mui-page-content {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #efeff4;
+        }
+        .mui-scroll-wrapper,
+        .mui-scroll {
+            background-color: #efeff4;
+        }
+        .mui-page.mui-transitioning {
+            -webkit-transition: -webkit-transform 300ms ease;
+            transition: transform 300ms ease;
+        }
+        .mui-page-left {
+            -webkit-transform: translate3d(0, 0, 0);
+            transform: translate3d(0, 0, 0);
+        }
+        .mui-page-left {
+            -webkit-transform: translate3d(-20%, 0, 0);
+            transform: translate3d(-20%, 0, 0);
+        }
+        .mui-navbar {
+            position: fixed;
+            right: 0;
+            left: 0;
+            z-index: 10;
+            height: 44px;
+            background-color: #f7f7f8;
+        }
+        .mui-navbar .mui-bar {
+            position: absolute;
+            background: transparent;
             text-align: center;
         }
+        .mui-android .mui-navbar-inner.mui-navbar-left {
+            opacity: 0;
+        }
+        .mui-navbar-left .mui-left,
+        .mui-navbar-left .mui-center,
+        .mui-navbar-left .mui-right {
+            opacity: 0;
+        }
+        .mui-navbar .mui-btn-nav {
+            -webkit-transition: none;
+            transition: none;
+            -webkit-transition-duration: .0s;
+            transition-duration: .0s;
+        }
+        .mui-navbar .mui-bar .mui-title {
+            display: inline-block;
+            width: auto;
+        }
+        .mui-page-shadow {
+            position: absolute;
+            right: 100%;
+            top: 0;
+            width: 16px;
+            height: 100%;
+            z-index: -1;
+            content: '';
+        }
+        .mui-page-shadow {
+            background: -webkit-linear-gradient(left, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0) 10%, rgba(0, 0, 0, .01) 50%, rgba(0, 0, 0, .2) 100%);
+            background: linear-gradient(to right, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0) 10%, rgba(0, 0, 0, .01) 50%, rgba(0, 0, 0, .2) 100%);
+        }
+        .mui-navbar-inner.mui-transitioning,
+        .mui-navbar-inner .mui-transitioning {
+            -webkit-transition: opacity 300ms ease, -webkit-transform 300ms ease;
+            transition: opacity 300ms ease, transform 300ms ease;
+        }
+        .mui-page {
+            display: none;
+        }
+        .mui-pages .mui-page {
+            display: block;
+        }
+        .mui-page .mui-table-view:first-child {
+            margin-top: 15px;
+        }
+        .mui-page .mui-table-view:last-child {
+            margin-bottom: 30px;
+        }
+        .mui-table-view {
+            margin-top: 20px;
+        }
 
-        .mui-btn{
-            width: 50%;
-            margin: 10px auto;
+        .mui-table-view span.mui-pull-right {
+            color: #999;
+        }
+        .mui-table-view-divider {
+            background-color: #efeff4;
+            font-size: 14px;
+        }
+        .mui-table-view-divider:before,
+        .mui-table-view-divider:after {
+            height: 0;
+        }
+        .head {
+            height: 40px;
+        }
+        #head {
+            line-height: 40px;
+        }
+        .head-img {
+            width: 40px;
+            height: 40px;
+        }
+        #head-img1 {
+            position: absolute;
+            bottom: 10px;
+            right: 40px;
+            width: 40px;
+            height: 40px;
+        }
+        .update {
+            font-style: normal;
+            color: #999999;
+            margin-right: -25px;
+            font-size: 15px
+        }
+        .mui-fullscreen {
+            position: fixed;
+            z-index: 20;
+            background-color: #000;
+        }
+        .mui-navbar .mui-bar .mui-title {
+            position: static;
         }
     </style>
 </head>
-<body>
-<button class="mui-btn" onclick="window.location.href = 'https://www.baidu.com';">跳转百度</button>
-<button class="mui-btn" onclick="barcode()">扫描二维码</button>
-<button class="mui-btn" onclick="openWindow()">打开新页面</button>
-<h1>页面4</h1>
-<h1>页面4</h1>
-<h1>页面4</h1>
-<h1>页面4</h1>
-<h1>页面4</h1>
-<h1>页面4</h1>
-<h1>页面4</h1>
-<h1>页面4</h1>
-<h1>页面4</h1>
-<h1>页面4</h1>
-<h1>页面4</h1>
-<h1>页面4</h1>
-<h1>页面4</h1>
-<h1>页面4</h1>
-<h1>页面4</h1>
-<h1>页面4</h1>
-<h1>页面4</h1>
-<h1>页面4</h1>
-<h1>页面4</h1>
-<h1>页面4</h1>
-<h1>页面4</h1>
-<h1>页面4</h1>
-<h1>页面4</h1>
-<h1>页面4</h1>
-<h1>页面4</h1>
-<h1>页面4</h1>
-<h1>页面4</h1>
-<h1>页面4</h1>
-<h1>页面4</h1>
-<h1>页面4</h1>
-<h1>页面4</h1>
-<h1>页面4</h1>
-<h1>页面4</h1>
-<h1>页面4</h1>
-<h1>页面4</h1>
-<h1>页面4</h1>
-<h1>页面4</h1>
-<h1>页面4</h1>
-<h1>页面4</h1>
-<h1>页面4</h1>
-<h1>页面4</h1>
-<h1>页面4</h1>
-<h1>页面4</h1>
-<h1>页面4</h1>
-<h1>页面4</h1>
-<h1>页面4</h1>
-<h1>页面4</h1>
-<h1>最后一个</h1>
+
+<body class="mui-fullscreen">
+<!-- 主页面 -->
+<div id="app" class="mui-views">
+    <div class="mui-view">
+        <div class="mui-pages">
+            <div id="setting" data-title="用户中心" style="transform: translate3d(0, 0px, 0px);" class="mui-page mui-page-center">
+                <div class="mui-page-content">
+                    <div class="mui-scroll-wrapper" data-scroll="2">
+                        <div class="mui-scroll" style="transform: translate3d(0px, 0px, 0px) translateZ(0px);">
+                            <ul class="mui-table-view mui-table-view-chevron">
+                                <li class="mui-table-view-cell mui-media">
+                                    <a class="mui-navigate-right" href="#account">
+                                        <img class="mui-media-object mui-pull-left head-img" id="head-img" src="https://www.dcloud.net.cn/hellomui/images/logo.png">
+                                        <div class="mui-media-body">
+                                            Hello MUI
+                                            <p class="mui-ellipsis">账号:hellomui</p>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                            <ul class="mui-table-view mui-table-view-chevron">
+                                <li class="mui-table-view-cell">
+                                    <a href="#account" class="mui-navigate-right">账号与安全</a>
+                                </li>
+                            </ul>
+                            <ul class="mui-table-view mui-table-view-chevron">
+                                <li class="mui-table-view-cell">
+                                    <a href="#notifications" class="mui-navigate-right">新消息通知</a>
+                                </li>
+                            </ul>
+                            <ul class="mui-table-view">
+                                <li class="mui-table-view-cell" style="text-align: center;">
+                                    <a>退出登录</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="mui-scrollbar mui-scrollbar-vertical">
+                            <div class="mui-scrollbar-indicator" style="transition-duration: 0ms; display: none; height: 518px; transform: translate3d(0px, 0px, 0px) translateZ(0px);"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 单页面 -->
+<div id="account" data-title="账号与安全"  class="mui-page">
+    <div class="mui-page-content">
+        <div class="mui-scroll-wrapper" data-scroll="3">
+            <div class="mui-scroll" style="transform: translate3d(0px, 0px, 0px) translateZ(0px);">
+                <ul class="mui-table-view">
+                    <li class="mui-table-view-cell">
+                        <a id="head" class="mui-navigate-right">头像
+                            <span class="mui-pull-right head">
+									<img class="head-img mui-action-preview" id="head-img1" src="https://www.dcloud.net.cn/hellomui/images/logo.png">
+								</span>
+                        </a>
+                    </li>
+                    <li class="mui-table-view-cell">
+                        <a>姓名<span class="mui-pull-right">Hbuilder</span></a>
+                    </li>
+                    <li class="mui-table-view-cell">
+                        <a>HBuilder账号<span class="mui-pull-right">hbuilder@dcloud.io</span></a>
+                    </li>
+                </ul>
+                <ul class="mui-table-view">
+                    <li class="mui-table-view-cell">
+                        <a>QQ号<span class="mui-pull-right">88888888</span></a>
+                    </li>
+                    <li class="mui-table-view-cell">
+                        <a>手机号<span class="mui-pull-right">18601234567</span></a>
+                    </li>
+                    <li class="mui-table-view-cell">
+                        <a>邮箱地址<span class="mui-pull-right">hbuilder@dcloud.io</span></a>
+                    </li>
+                </ul>
+            </div>
+            <div class="mui-scrollbar mui-scrollbar-vertical"><div class="mui-scrollbar-indicator" style="transition-duration: 0ms; display: none; height: 8px; transform: translate3d(0px, -8px, 0px) translateZ(0px);"></div></div></div>
+    </div>
+</div>
+<div id="notifications" data-title="新消息通知"  class="mui-page">
+    <div class="mui-page-content">
+        <div class="mui-scroll-wrapper" data-scroll="4">
+            <div class="mui-scroll" style="transform: translate3d(0px, 0px, 0px) translateZ(0px);">
+                <ul class="mui-table-view">
+                    <li class="mui-table-view-cell">
+                        <a>接收新消息通知<span class="mui-pull-right">已开启</span></a>
+                    </li>
+                </ul>
+                <ul class="mui-table-view">
+                    <li class="mui-table-view-cell">
+                        通知显示消息详情
+                        <div class="mui-switch mui-active mui-switch-mini" data-switch="9">
+                            <div class="mui-switch-handle"></div>
+                        </div>
+                    </li>
+                </ul>
+                <div class="mui-content-padded">
+                    <p>若关闭，当收到新消息时，通知提示将不显示发信人和内容摘要</p>
+                </div>
+
+                <ul class="mui-table-view mui-table-view-chevron">
+                    <li class="mui-table-view-cell">
+                        <a href="#notifications_disturb" class="mui-navigate-right">功能消息免打扰</a>
+                    </li>
+                </ul>
+                <div class="mui-content-padded">
+                    <p>设置系统功能消息提示声音和震动的时段</p>
+                </div>
+                <ul class="mui-table-view">
+                    <li class="mui-table-view-cell">
+                        <a>接收新消息通知<span class="mui-pull-right">已开启</span></a>
+                    </li>
+                </ul>
+                <ul class="mui-table-view">
+                    <li class="mui-table-view-cell">
+                        声音
+                        <div class="mui-switch mui-active mui-switch-mini" data-switch="10">
+                            <div class="mui-switch-handle"></div>
+                        </div>
+                    </li>
+                    <li class="mui-table-view-cell">
+                        震动
+                        <div class="mui-switch mui-active mui-switch-mini" data-switch="11">
+                            <div class="mui-switch-handle"></div>
+                        </div>
+                    </li>
+                </ul>
+                <div class="mui-content-padded">
+                    <p>当HelloMUI在运行时，你可以设置是否需要声音或者震动</p>
+                </div>
+                <div></div>
+            </div>
+            <div class="mui-scrollbar mui-scrollbar-vertical"><div class="mui-scrollbar-indicator" style="transition-duration: 0ms; display: none; height: 8px; transform: translate3d(0px, -8px, 0px) translateZ(0px);"></div></div></div>
+    </div>
+</div>
+<script>
+    //标题
+    HuanziHeader.title($(".mui-page-center").data("title"));
+
+    //初始化单页view
+    let viewApi = mui('#app').view({
+        defaultPage: '#setting'
+    });
+</script>
+
+<div id="__mui-imageview__" class="mui-slider mui-fullscreen" style="display: none;" data-slider="20">
+    <div id="__mui-imageview__group" class="mui-slider-group" style="transform: translate3d(0px, 0px, 0px) translateZ(0px);">
+        <div class="mui-slider-item"><a><img src="https://www.dcloud.net.cn/hellomui/images/logo.png"></a>
+        </div>
+    </div>
+</div>
 </body>
-<script th:src="@{/barcode/js/barcode.js}"></script>
 </html>
