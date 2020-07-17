@@ -7,16 +7,15 @@
     <artifactId>parent</artifactId>
     <version>1.0.0</version>
     <packaging>pom</packaging>
+    <description>SpringBoot系列demo代码</description>
 
+    <!--  父类继承spring-boot-starter-parent  -->
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.1.0.RELEASE</version>
         <relativePath/>
     </parent>
-
-    <description>SpringBoot系列demo代码</description>
-
 
     <!-- 在父类引入一下通用的依赖 -->
     <dependencies>
