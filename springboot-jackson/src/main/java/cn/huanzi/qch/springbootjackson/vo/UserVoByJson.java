@@ -10,7 +10,7 @@ import java.util.Date;
 @JsonIgnoreProperties({"captcha"})
 //当属性的值为空（null或者""）时，不进行序列化，可以减少数据传输
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
-public class UserVo {
+public class UserVoByJson {
 
     // 序列化、反序列化时，属性的名称
     @JsonProperty("userName")
