@@ -20,7 +20,7 @@ spring:
       date-format: yyyy-MM-dd HH:mm:ss #jackson对响应回去的日期参数进行格式化
       time-zone: GMT+8
 
-#如果采用xml配置方式则需要进行加载扫描
+#如果采用xml配置方式则需要进行加载扫描 xml文件放在src/main/java目录或者放在resource目录都可以，指定好路径就可以
 mybatis:
   # 配置mapper的扫描，找到所有的mapper.xml映射文件
   mapperLocations: classpath:conf/mybatis/mapper/*.xml

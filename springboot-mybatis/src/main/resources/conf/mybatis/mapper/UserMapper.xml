@@ -4,6 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.huanzi.qch.springbootmybatis.mapper.UserMapper">
 
+    <!-- keyProperty="id"用于指定实体的那个属性接收自动生成的id -->
     <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="cn.huanzi.qch.springbootmybatis.pojo.User">
         insert into tb_user(username,password,created) value(#{username},#{password},#{created})
     </insert>

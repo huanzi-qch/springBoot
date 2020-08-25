@@ -1,0 +1,23 @@
+package cn.huanzi.qch.springbootmybatisplus.$!{cfg.abc}.service;
+
+import cn.huanzi.qch.springbootmybatisplus.common.service.CommonServiceImpl;
+import cn.huanzi.qch.springbootmybatisplus.$!{cfg.abc}.entity.${entity};
+import cn.huanzi.qch.springbootmybatisplus.$!{cfg.abc}.entity.${entity}Vo;
+import cn.huanzi.qch.springbootmybatisplus.$!{cfg.abc}.mapper.${entity}Mapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+/**
+ * <p>
+ * $!{table.comment} 服务实现类
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+@Service
+public class ${table.serviceImplName}  extends CommonServiceImpl<${entity}Vo,${entity}>  implements ${table.serviceName} {
+
+    @Autowired
+    private ${entity}Mapper $!{cfg.abc}Mapper;
+}

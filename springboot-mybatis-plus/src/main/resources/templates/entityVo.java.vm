@@ -1,0 +1,25 @@
+package ${package.Entity};
+
+import cn.huanzi.qch.springbootmybatisplus.common.entity.PageCondition;
+#foreach($pkg in ${table.importPackages})
+import ${pkg};
+#end
+
+import lombok.Data;
+
+/**
+ * <p>
+ * $!{table.comment}
+ * </p>
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+@Data
+public class ${entity}Vo extends PageCondition {
+## ----------  BEGIN 字段循环遍历  ----------
+#foreach($field in ${table.fields})
+    private ${field.propertyType} ${field.propertyName};
+#end
+## ----------  END 字段循环遍历  ----------
+}
