@@ -90,6 +90,7 @@ SpringBoot用的是2.1.0.RELEASE，Demo代码主要参照官方文档，以及�
 | springboot-loadmyprofiles | [SpringBoot系列——加载自定义配置文件](https://www.cnblogs.com/huanzi-qch/p/11122107.html) |
 | springboot-logback | [SpringBoot系列——Logback日志，输出到文件以及实时输出到web页面](https://www.cnblogs.com/huanzi-qch/p/11041300.html) |
 | springboot-mail | [SpringBoot系列——mail](https://www.cnblogs.com/huanzi-qch/p/9957987.html) |
+| springboot-mybatis-plus | [SpringBoot系列——MyBatis-Plus整合封装](https://www.cnblogs.com/huanzi-qch/p/13561164.html) |
 | springboot-mybatis | [SpringBoot系列——MyBatis整合](https://www.cnblogs.com/huanzi-qch/p/10065136.html) |
 | springboot-redis | [SpringBoot系列——Redis](https://www.cnblogs.com/huanzi-qch/p/10239888.html) |
 | springboot-security | [SpringBoot系列——Security + Layui实现一套权限管理后台模板](https://www.cnblogs.com/huanzi-qch/p/11226705.html)<br/> [开源一套简单通用的后台管理系统](https://www.cnblogs.com/huanzi-qch/p/11534203.html) |
