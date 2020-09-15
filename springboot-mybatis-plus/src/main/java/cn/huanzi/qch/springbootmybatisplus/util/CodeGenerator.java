@@ -18,40 +18,55 @@ import java.util.*;
  * 工具封装部分代码参考：https://blog.csdn.net/qq_38796327/article/details/99736134
  */
 public class CodeGenerator {
-	/**
-	 * 请自定义自己的db url
-	 */
-	private static String DB_URL = "jdbc:mysql://localhost:3306/test?serverTimezone=GMT%2B8&characterEncoding=utf-8";
 
 	/**
-	 * 请自定义自己的username
+	 * 数据库连接url
+	 */
+	private static final String DB_URL = "jdbc:mysql://localhost:3306/test?serverTimezone=GMT%2B8&characterEncoding=utf-8";
+
+	/**
+	 * 用户名
 	 */
 	private static final String USERNAME = "root";
 
 	/**
-	 * 请自定义自己的password
+	 * 密码
 	 */
-	private static String PASSWORD = "123456";
+	private static final String PASSWORD = "123456";
 
-	private static String DRIVER_NAME = "com.mysql.cj.jdbc.Driver";
+	/**
+	 * 数据库驱动
+	 */
+	private static final String DRIVER_NAME = "com.mysql.cj.jdbc.Driver";
+
+	/**
+	 * 数据库类型
+	 */
+	private static final DbType DB_TYPE = DbType.MYSQL;
+
+	/**
+	 * 命名空间，不指定就默认 public
+	 */
+	private static final String NAME_SPACE = "public";
 
 	/**
 	 * 请自定义自己的包名，后续的代码生成会在这个包下
 	 */
-	private static String PACKAGE_NAME = "cn.huanzi.qch.springbootmybatisplus";
+	private static final String PACKAGE_NAME = "cn.huanzi.qch.springbootmybatisplus";
 
 	/**
 	 * 项目根路径
 	 */
-	private static String BASE_PATH = System.getProperty("user.dir") + "\\springboot-mybatis-plus\\src\\main\\java\\";
+	private static final String BASE_PATH = System.getProperty("user.dir") + "\\springboot-mybatis-plus\\src\\main\\java\\";
 
-//	public static void main(String[] args) {
+	public static void main(String[] args) {
+//		//注意，表名有些是区分大小写的
 //		String[] tables = {"tb_user","tb_description"};
 //		for (String table : tables) {
 //			generateByTables(table);
 //		}
 //		System.out.println("代码已全部生成完毕！");
-//	}
+	}
 
 	/**
 	 * 通过表名生成相关类
@@ -106,8 +121,7 @@ public class CodeGenerator {
 	}
 
 	/**
-	 * 自定义代码生成模板, 由于我的项目中完全舍弃了xml文件和service接口，因此置null,
-	 * 在模版引擎的执行方法中会校验如果模版为空则不会执行writer()方法
+	 * 指定模板，如果模版为空则不会生成，如果没有符合的，可在generateByTables方法，优先使用自定义模板
 	 */
 	private static TemplateConfig getTemplateConfig() {
 		TemplateConfig templateConfig = new TemplateConfig();
@@ -119,7 +133,6 @@ public class CodeGenerator {
 				.setServiceImpl("templates/serviceImpl.java.vm") // serviceImpl模板采用自定义模板
 				.setController("templates/controller.java.vm"); // controller模板采用自定义模板
 		return templateConfig;
-
 	}
 
 	/**
@@ -155,13 +168,13 @@ public class CodeGenerator {
 	 * 配置数据源
 	 */
 	private static DataSourceConfig getDataSourceConfig() {
-		String dbUrl = DB_URL;
 		DataSourceConfig dataSourceConfig = new DataSourceConfig();
-		dataSourceConfig.setDbType(DbType.MYSQL)
+		dataSourceConfig.setDbType(DB_TYPE)
 				.setDriverName(DRIVER_NAME)
 				.setUsername(USERNAME)
 				.setPassword(PASSWORD)
-				.setUrl(dbUrl);
+				.setSchemaName(NAME_SPACE)
+				.setUrl(DB_URL);
 		return dataSourceConfig;
 	}
 
@@ -206,6 +219,9 @@ public class CodeGenerator {
 	}
 }
 
+/**
+ * 自定义策略
+ */
 class MyAutoGenerator extends AutoGenerator {
 
 	@Override
@@ -219,6 +235,11 @@ class MyAutoGenerator extends AutoGenerator {
 				if (field.getPropertyType().equals("LocalDateTime")) {
 					field.setColumnType(DbColumnType.DATE);
 					importPackages.remove("java.time.LocalDateTime");
+					importPackages.add("java.util.Date");
+				}
+				if (field.getPropertyType().equals("LocalDate")) {
+					field.setColumnType(DbColumnType.DATE);
+					importPackages.remove("java.time.LocalDate");
 					importPackages.add("java.util.Date");
 				}
 			});
