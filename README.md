@@ -76,6 +76,7 @@ SpringBoot用的是2.1.0.RELEASE，Demo代码主要参照官方文档，以及�
 
 | 项目 | 博客 |
 |  ----  | ----  |
+| springboot-activiti7 | [SpringBoot系列——Activiti7工作流引擎](https://www.cnblogs.com/huanzi-qch/p/14758858.html) |
 | springboot-aop | [SpringBoot系列——aop 面向切面](https://www.cnblogs.com/huanzi-qch/p/9916478.html) |
 | springboot-async | [SpringBoot系列——@Async优雅的异步调用](https://www.cnblogs.com/huanzi-qch/p/11231041.html) |
 | springboot-banner | [SpringBoot系列——花里胡哨的banner.txt](https://www.cnblogs.com/huanzi-qch/p/9916784.html) |
