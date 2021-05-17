@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<!--解决idea thymeleaf 表达式模板报红波浪线-->
+<!--suppress ALL -->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>任务待办</title>
+    <script th:src="@{/jquery/jquery.js}"></script>
+</head>
+<body>
+    <h3>“<span th:text="${username}"></span>”-任务待办</h3>
+    <table border="1">
+        <tr>
+            <th>序号</th>
+            <th>业务主键</th>
+            <th>任务名称</th>
+            <th>操作</th>
+        </tr>
+        <tr th:each="item,iterStat : ${list}">
+            <td th:text="${iterStat.count}"></td>
+            <td th:text="${item.processInstance.businessKey}"></td>
+            <td th:text="${item.task.name}"></td>
+            <td>
+                <button th:data-id="${item.task.id}" onclick="ratify(this)">同意</button>
+                <button th:data-id="${item.task.id}" onclick="reject(this)">拒绝</button>
+            </td>
+        </tr>
+    </table>
+</body>
+<script th:inline="javascript">
+    let username = [[${username}]];
+
+    //同意
+    function ratify(this_) {
+        let id = $(this_).data("id");
+        $.post("/activiti/completeUserTaskById",{taskId:id,username:username,message:"同意",auditFlag:true},function (data) {
+            alert("操作成功！");
+            window.location.reload();
+        });
+    }
+    //拒绝
+    function reject(this_) {
+        let id = $(this_).data("id");
+        $.post("/activiti/completeUserTaskById",{taskId:id,username:username,message:"拒绝",auditFlag:false},function (data) {
+            alert("操作成功！");
+            window.location.reload();
+        });
+    }
+</script>
+</html>

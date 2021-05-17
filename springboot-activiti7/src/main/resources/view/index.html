@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<!--解决idea thymeleaf 表达式模板报红波浪线-->
+<!--suppress ALL -->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>流程发起</title>
+    <script th:src="@{/jquery/jquery.js}"></script>
+    <style>
+        #askForLeave{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <button onclick="show('askForLeave')">请假</button>
+    </div>
+    <br/>
+    <div id="askForLeave">
+        <form id="askForLeaveForm">
+            业务主键：<input type="text" name="businessKey" value=""/><br/>
+            请假人名：<input type="text" name="username" value=""/><br/>
+            请假时间：<input type="text" name="time" value=""/><br/>
+            请假天数：<input type="text" name="count" value=""/><br/>
+            项目经理：<input type="text" name="pm" value=""/><br/>
+            部门经理：<input type="text" name="bm" value=""/><br/>
+        </form>
+        <button onclick="askForLeaveFormSubmit()">提交</button>
+    </div>
+</body>
+<script>
+    /**
+     * 拓展表单对象：用于将对象序列化为JSON对象
+     */
+    $.fn.serializeObject = function () {
+        var o = {};
+        var a = this.serializeArray();
+        $.each(a, function () {
+            if (o[this.name]) {
+                if (!o[this.name].push) {
+                    o[this.name] = [o[this.name]];
+                }
+                o[this.name].push(this.value || '');
+            } else {
+                o[this.name] = this.value || '';
+            }
+        });
+        return o;
+    };
+
+    var showThisId = null;
+    function show(id) {
+        if(showThisId != null && showThisId != id){
+            document.getElementById(showThisId).style.display = 'none';
+        }
+        document.getElementById(id).style.display = 'block';
+        showThisId = id;
+    }
+
+    function askForLeaveFormSubmit() {
+        let from = $("#askForLeaveForm").serializeObject();
+        $.post("/activiti/askForLeave",from,function (data) {
+            alert("操作成功！");
+            window.location.reload();
+        });
+    }
+</script>
+</html>

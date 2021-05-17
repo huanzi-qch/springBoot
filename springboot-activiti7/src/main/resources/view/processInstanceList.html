@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<!--解决idea thymeleaf 表达式模板报红波浪线-->
+<!--suppress ALL -->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>流程实例</title>
+    <script th:src="@{/jquery/jquery.js}"></script>
+</head>
+<body>
+<h3>“<span th:text="${username}"></span>”-流程实例</h3>
+<table border="1">
+    <tr>
+        <th>序号</th>
+        <th>业务主键</th>
+        <th>当前节点</th>
+        <th>操作</th>
+    </tr>
+    <tr th:each="item,iterStat : ${list}">
+        <td th:text="${iterStat.count}"></td>
+        <td th:text="${item.processInstance.businessKey}"></td>
+        <td th:if="${item.task eq null}">流程结束</td>
+        <td th:unless="${item.task eq null}" th:text="${item.task.name}"></td>
+        <td>
+            <button th:data-id="${item.processInstance.id}" onclick="ratify(this)">查看</button>
+        </td>
+    </tr>
+</table>
+</body>
+<script>
+    function ratify(this_) {
+        let id = $(this_).data("id");
+        $.get("/activiti/getFlowImgByInstanceId?processInstanceId="+id+"&time=" + new Date().getTime(),{},function (data) {
+            let me = window.open("", "流程图",
+                "height=700, width=800, top=100, left=100, toolbar=no, menubar=no,scrollbars=no,resizable=no, location=no, status=no");  //打开新窗口
+            me.document.write(data);
+        });
+    }
+</script>
+</html>
