@@ -82,6 +82,7 @@ SpringBoot用的是2.1.0.RELEASE，Demo代码主要参照官方文档，以及�
 | springboot-banner | [SpringBoot系列——花里胡哨的banner.txt](https://www.cnblogs.com/huanzi-qch/p/9916784.html) |
 | springboot-cors | [SpringBoot系列——CORS(跨源资源共享)](https://www.cnblogs.com/huanzi-qch/p/11171734.html) |
 | springboot-elasticsearch | [SpringBoot系列——ElasticSearch](https://www.cnblogs.com/huanzi-qch/p/11586205.html) |
+| springboot-exceptionhandler | [SpringBoot系列——自定义统一异常处理](https://www.cnblogs.com/huanzi-qch/p/14788991.html) |
 | springboot-filter | [SpringBoot系列——Filter 过滤器](https://www.cnblogs.com/huanzi-qch/p/11239167.html) |
 | springboot-https | [SpringBoot系列——启用https](https://www.cnblogs.com/huanzi-qch/p/12133872.html) |
 | springboot-i18n | [SpringBoot系列——i18n国际化](https://www.cnblogs.com/huanzi-qch/p/10000324.html) |
@@ -100,6 +101,14 @@ SpringBoot用的是2.1.0.RELEASE，Demo代码主要参照官方文档，以及�
 | springboot-timer | [SpringBoot系列——定时器](https://www.cnblogs.com/huanzi-qch/p/9916079.html) |
 | springboot-uniapp-mui | [SpringBoot系列——基于mui的H5套壳APP开发web框架](https://www.cnblogs.com/huanzi-qch/p/12727209.html)<br/> [SpringBoot系列——PC端、移动端页面适配方案](https://www.cnblogs.com/huanzi-qch/p/12053799.html)<br/> [移动端App uni-app + mui 开发记录](https://www.cnblogs.com/huanzi-qch/p/11972723.html) |
 | springboot-websocket | [SpringBoot系列——WebSocket](https://www.cnblogs.com/huanzi-qch/p/9952578.html)<br/> [WebSocket+Java 私聊、群聊实例](https://www.cnblogs.com/huanzi-qch/p/9889521.html) |
+
+## AD广告位（长期招租，如有需要请私信）<br/> 
+[阿里云服务器（ECS）等，高性能服务器，就选阿里云](https://s.click.taobao.com/zb70Vtu)<br/> 
+[虚机+服务器，独享虚机服务 1c1g 3M带宽](https://s.click.taobao.com/q9rZYtu)<br/> 
+[云服务器，企业级云服务器特惠5折](https://s.click.taobao.com/2khzUtu)<br/> 
+[全民云计算，1核1G仅需293元/年](https://s.click.taobao.com/vLrzUtu)<br/> 
+[云服务器，低至323元/年](https://s.click.taobao.com/8PG0Vtu)<br/> 
+[云服务器，十倍性能提升,最佳性价比](https://s.click.taobao.com/L110Vtu)<br/> 
 
 ## QQ群<br/>
 有事请加群，有问题进群大家一起交流！
