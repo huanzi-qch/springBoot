@@ -21,9 +21,9 @@ public class TbUser {
     /**
      * 表id
      */
-        //主键生成策略自动递增：type = IdType.AUTO，指定id回显
+    //主键生成策略自动递增：type = IdType.AUTO，指定id回显
     @TableId(value = "id", type = IdType.AUTO)
-        private Integer id;
+    private Integer id;
 
     /**
      * 用户名

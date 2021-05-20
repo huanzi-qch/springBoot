@@ -11,20 +11,10 @@ import java.io.Serializable;
 public class TbDescription implements Serializable {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private Integer id;//
+    private Integer id;//表id
 
-    private Integer userId;//
+    private Integer userId;//用户id
 
-    private String description;//
+    private String description;//用户描述
 
 }
-/*
-
-CREATE TABLE `tb_description`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NOT NULL,
-  `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 19 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Compact;
-
- */
