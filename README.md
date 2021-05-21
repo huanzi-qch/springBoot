@@ -82,6 +82,7 @@ SpringBoot用的是2.1.0.RELEASE，Demo代码主要参照官方文档，以及�
 | springboot-banner | [SpringBoot系列——花里胡哨的banner.txt](https://www.cnblogs.com/huanzi-qch/p/9916784.html) |
 | springboot-cors | [SpringBoot系列——CORS(跨源资源共享)](https://www.cnblogs.com/huanzi-qch/p/11171734.html) |
 | springboot-elasticsearch | [SpringBoot系列——ElasticSearch](https://www.cnblogs.com/huanzi-qch/p/11586205.html) |
+| springboot-eventsandlisteners | [SpringBoot系列——事件发布与监听](https://www.cnblogs.com/huanzi-qch/p/14792984.html) |
 | springboot-exceptionhandler | [SpringBoot系列——自定义统一异常处理](https://www.cnblogs.com/huanzi-qch/p/14788991.html) |
 | springboot-filter | [SpringBoot系列——Filter 过滤器](https://www.cnblogs.com/huanzi-qch/p/11239167.html) |
 | springboot-https | [SpringBoot系列——启用https](https://www.cnblogs.com/huanzi-qch/p/12133872.html) |
