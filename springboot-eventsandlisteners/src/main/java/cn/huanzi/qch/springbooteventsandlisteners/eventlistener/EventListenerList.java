@@ -18,7 +18,7 @@ public class EventListenerList {
      */
     @Async("asyncTaskExecutor")
     @EventListener
-    @Order(1)//一个事件多个事监听，使用@order值越小，执行顺序优先
+    @Order(1)//一个事件多个事监听，同步的情况下，使用@order值越小，执行顺序优先
     public void userRegisterListener(UserEventSource eventSourceEvent){
         log.info("用户注册事件监听1："+eventSourceEvent.getUserVo());
 
@@ -29,7 +29,7 @@ public class EventListenerList {
      */
     @Async("asyncTaskExecutor")
     @EventListener
-    @Order(2)//一个事件多个事监听，使用@order值越小，执行顺序优先
+    @Order(2)//一个事件多个事监听，同步的情况下，使用@order值越小，执行顺序优先
     public void userRegisterListener2(UserEventSource eventSourceEvent){
         log.info("用户注册事件监听2："+eventSourceEvent.getUserVo());
 
