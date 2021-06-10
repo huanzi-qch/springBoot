@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd" updateCheck="false">
+
+    <!-- 磁盘缓存位置 -->
+    <diskStore path="java.io.tmpdir"/>
+
+    <!-- maxEntriesLocalHeap:堆内存中最大缓存对象数，0没有限制 -->
+    <!-- maxElementsInMemory： 在内存中缓存的element的最大数目。-->
+    <!-- eternal:elements是否永久有效，如果为true，timeouts将被忽略，element将永不过期 -->
+    <!-- timeToIdleSeconds:发呆秒数，发呆期间未访问缓存立即过期，当eternal为false时，这个属性才有效，0为不限制 -->
+    <!-- timeToLiveSeconds:总存活秒数，当eternal为false时，这个属性才有效，0为不限制 -->
+    <!-- overflowToDisk： 如果内存中数据超过内存限制，是否要缓存到磁盘上 -->
+    <!-- statistics：是否收集统计信息。如果需要监控缓存使用情况，应该打开这个选项。默认为关闭（统计会影响性能）。设置statistics="true"开启统计 -->
+
+    <!--
+        默认缓存
+        无过期时间，但 600 秒内无人访问缓存立即过期
+    -->
+    <defaultCache
+            maxElementsInMemory="1000"
+            eternal="false"
+            timeToIdleSeconds="600"
+            timeToLiveSeconds="0"
+            overflowToDisk="false">
+    </defaultCache>
+
+    <!--
+        xx业务缓存
+        在有效的 120 秒内，如果连续 60 秒未访问缓存，则缓存失效。
+        就算有访问，也只会存活 120 秒。
+    -->
+    <cache name="myCache"
+           maxElementsInMemory="1000"
+           eternal="false"
+           timeToIdleSeconds="120"
+           timeToLiveSeconds="0"
+           overflowToDisk="false">
+    </cache>
+</ehcache>

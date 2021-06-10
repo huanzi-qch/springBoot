@@ -80,6 +80,7 @@ SpringBoot用的是2.1.0.RELEASE，Demo代码主要参照官方文档，以及�
 | springboot-aop | [SpringBoot系列——aop 面向切面](https://www.cnblogs.com/huanzi-qch/p/9916478.html) |
 | springboot-async | [SpringBoot系列——@Async优雅的异步调用](https://www.cnblogs.com/huanzi-qch/p/11231041.html) |
 | springboot-banner | [SpringBoot系列——花里胡哨的banner.txt](https://www.cnblogs.com/huanzi-qch/p/9916784.html) |
+| springboot-cache | [SpringBoot系列——cache缓存](https://www.cnblogs.com/huanzi-qch/p/14871341.html) |
 | springboot-cors | [SpringBoot系列——CORS(跨源资源共享)](https://www.cnblogs.com/huanzi-qch/p/11171734.html) |
 | springboot-elasticsearch | [SpringBoot系列——ElasticSearch](https://www.cnblogs.com/huanzi-qch/p/11586205.html) |
 | springboot-eventsandlisteners | [SpringBoot系列——事件发布与监听](https://www.cnblogs.com/huanzi-qch/p/14792984.html) |
