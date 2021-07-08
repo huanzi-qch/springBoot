@@ -103,6 +103,7 @@ SpringBoot用的是2.1.0.RELEASE，Demo代码主要参照官方文档，以及�
 | springboot-thymeleaf | [SpringBoot系列——Thymeleaf模板](https://www.cnblogs.com/huanzi-qch/p/9930390.html) |
 | springboot-timer | [SpringBoot系列——定时器](https://www.cnblogs.com/huanzi-qch/p/9916079.html) |
 | springboot-uniapp-mui | [SpringBoot系列——基于mui的H5套壳APP开发web框架](https://www.cnblogs.com/huanzi-qch/p/12727209.html)<br/> [SpringBoot系列——PC端、移动端页面适配方案](https://www.cnblogs.com/huanzi-qch/p/12053799.html)<br/> [移动端App uni-app + mui 开发记录](https://www.cnblogs.com/huanzi-qch/p/11972723.html) |
+| springboot-validation | [SpringBoot系列——validation参数校验](https://www.cnblogs.com/huanzi-qch/p/14985530.html) |
 | springboot-websocket | [SpringBoot系列——WebSocket](https://www.cnblogs.com/huanzi-qch/p/9952578.html)<br/> [WebSocket+Java 私聊、群聊实例](https://www.cnblogs.com/huanzi-qch/p/9889521.html) |
 
 ## AD广告位（长期招租，如有需要请私信）<br/> 
