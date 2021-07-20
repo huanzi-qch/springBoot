@@ -19,7 +19,7 @@
             <!--日志保留天数-->
             <MaxHistory>15</MaxHistory>
             <!--日志文件最大的大小-->
-            <maxFileSize>10MB</maxFileSize>
+            <MaxFileSize>10MB</MaxFileSize>
         </rollingPolicy>
         <!--设置格式-->
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
