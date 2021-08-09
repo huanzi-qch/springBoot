@@ -1,0 +1,14 @@
+spring:
+    datasource: #数据库相关
+      url: jdbc:mysql://localhost:3306/test?serverTimezone=GMT%2B8&characterEncoding=utf-8
+      username: root
+      password: 123456
+      driver-class-name: com.mysql.jdbc.Driver
+    mvc:
+      date-format: yyyy-MM-dd HH:mm:ss #mvc接收参数时对日期进行格式化
+
+    jackson:
+      date-format: yyyy-MM-dd HH:mm:ss #jackson对响应回去的日期参数进行格式化
+      time-zone: GMT+8
+    jpa:
+      show-sql: true
