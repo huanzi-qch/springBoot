@@ -34,4 +34,4 @@ CREATE TABLE `tb_task`  (
 -- Records of tb_task
 -- ----------------------------
 INSERT INTO `tb_task` VALUES ('1', 'task1', '测试动态定时任务1', '0/5 * * * * ?', 0, 'cn.huanzi.qch.springboottimer.task.MyRunnable1', '2021-08-06 17:39:23', '2021-08-06 17:39:25');
-INSERT INTO `tb_task` VALUES ('2', 'task2', '测试动态定时任务2', '0/2 * * * * ?', 0, 'cn.huanzi.qch.springboottimer.task.MyRunnable2', '2021-08-06 17:39:23', '2021-08-06 17:39:25');
+INSERT INTO `tb_task` VALUES ('2', 'task2', '测试动态定时任务2', '0/5 * * * * ?', 0, 'cn.huanzi.qch.springboottimer.task.MyRunnable2', '2021-08-06 17:39:23', '2021-08-06 17:39:25');
