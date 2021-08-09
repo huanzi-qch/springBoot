@@ -2,13 +2,13 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <artifactId>springboot-jar-war</artifactId>
     <version>0.0.1</version>
     <name>springboot-jar-war</name>
     <description>SpringBoot系列——打成jar包跟war包</description>
+
     <!-- 默认jar，想要打成war包需要修改 -->
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
 
     <!--继承父类-->
     <parent>
@@ -19,11 +19,11 @@
 
     <dependencies>
         <!-- 如需打成war包 确保嵌入的servlet容器不会干扰部署war文件的servlet容器 -->
-        <dependency>
+        <!--<dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
             <scope>provided</scope>
-        </dependency>
+        </dependency>-->
     </dependencies>
 
     <!--构建工具-->
@@ -32,6 +32,34 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <!-- 文件名以及输出路径-->
+                <configuration>
+                    <finalName>${project.artifactId}</finalName>
+                    <outputDirectory>../package</outputDirectory>
+
+                    <!--
+                        ${project.artifactId}-thin
+                        jar包瘦身，不把依赖包打进jar中，可减少jar包大小，
+                        需要在启动命令指定依赖包路径：-Dloader.path="D:develop/shared/fjar"
+                     -->
+                    <!-- 指定该Main Class为全局的唯一入口 -->
+                    <!--<mainClass>cn.huanzi.qch.springbootjarwar.SpringbootJarWarApplication</mainClass>
+                    <layout>ZIP</layout>
+                    <includes>
+                        <include>
+                            <groupId>nothing</groupId>
+                            <artifactId>nothing</artifactId>
+                        </include>
+                    </includes>-->
+                </configuration>
+            </plugin>
+            <!-- 跳过启动测试 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <skipTests>true</skipTests>
+                </configuration>
             </plugin>
         </plugins>
     </build>
