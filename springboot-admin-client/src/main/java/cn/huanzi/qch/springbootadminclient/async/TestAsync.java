@@ -1,9 +1,10 @@
 package cn.huanzi.qch.springbootadminclient.async;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Async;
-
 import org.springframework.stereotype.Component;
 
+@Slf4j
 @Component
 public class TestAsync {
     @Async
@@ -16,6 +17,6 @@ public class TestAsync {
             e.printStackTrace();
         }
         long endTime = System.currentTimeMillis();
-        System.out.println(Thread.currentThread().getName() + "：void asyncTask()，耗时：" + (endTime - startTime));
+        log.info(Thread.currentThread().getName() + "：void asyncTask()，耗时：" + (endTime - startTime));
     }
 }
