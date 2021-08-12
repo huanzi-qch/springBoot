@@ -28,7 +28,7 @@ public class EventPublish {
         log.info("用户注册!");
 
         //发布 用户注册事件
-        applicationEventPublisher.publishEvent(new UserEventSource(userVo));
+        applicationEventPublisher.publishEvent(userVo);
 
         return "操作成功！";
     }
@@ -41,7 +41,7 @@ public class EventPublish {
         log.info("业务工单发起!");
 
         //发布 业务工单发起事件
-        applicationEventPublisher.publishEvent(new WorkOrderEventSource(workOrderVo));
+        applicationEventPublisher.publishEvent(workOrderVo);
 
         return "操作成功！";
     }
