@@ -22,16 +22,22 @@ public class DemoApplicationConfiguration {
     private Logger logger = LoggerFactory.getLogger(DemoApplicationConfiguration.class);
 
     @Bean
-    public UserDetailsService myUserDetailsService() {
+    public UserDetailsService userDetailsService() {
 
         InMemoryUserDetailsManager inMemoryUserDetailsManager = new InMemoryUserDetailsManager();
 
+        /*
+            几个默认账号
+            账号，密码，权限
+
+            需要配置了一个ROLE_ACTIVITI_USER这个角色才可以进行Activiti官方API调用
+         */
         String[][] usersGroupsAndRoles = {
                 {"salaboy", "password", "ROLE_ACTIVITI_USER", "GROUP_activitiTeam"},
                 {"ryandawsonuk", "password", "ROLE_ACTIVITI_USER", "GROUP_activitiTeam"},
                 {"erdemedeiros", "password", "ROLE_ACTIVITI_USER", "GROUP_activitiTeam"},
                 {"other", "password", "ROLE_ACTIVITI_USER", "GROUP_otherTeam"},
-                {"admin", "password", "ROLE_ACTIVITI_ADMIN"},
+                {"admin", "password", "ROLE_ACTIVITI_ADMIN", "ROLE_ACTIVITI_USER","GROUP_activitiTeam"},
         };
 
         for (String[] user : usersGroupsAndRoles) {

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<!--解决idea thymeleaf 表达式模板报红波浪线-->
+<!--suppress ALL -->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>流程引擎管理</title>
+
+</head>
+<body>
+<a href="javascript:window.location.href = '/modeler/newModel'">新增模型</a><br/>
+
+<p>模型列表</p>
+<table border="1">
+    <thead>
+        <tr>
+            <td>名称</td>
+            <td>版本</td>
+            <td>创建时间</td>
+            <td>操作</td>
+        </tr>
+    </thead>
+    <tbody id="a">
+    <tr th:each="item,iterStat : ${modelList}">
+        <td th:text="${item.name}"></td>
+        <td th:text="${item.version}"></td>
+        <td th:text="${#dates.format(item.createTime,'yyyy-MM-dd HH:mm:ss')}"></td>
+        <td>
+            <a th:href="${'/modeler/editor/'+item.id}">编辑</a>
+            <a th:href="${'/modeler/delete/'+item.id}">删除</a>
+            <a th:href="${'/modeler/deployment/'+item.id}">发布</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<p>部署列表</p>
+<table border="1">
+    <thead>
+    <tr>
+        <td>名称</td>
+        <td>部署时间</td>
+        <td>操作</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="item,iterStat : ${deploymentList}">
+        <td th:text="${item.name}"></td>
+        <td th:text="${#dates.format(item.deploymentTime,'yyyy-MM-dd HH:mm:ss')}"></td>
+        <td>
+            <a th:href="${'/modeler/delete/deployment/'+item.id}">删除</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+<script>
+
+</script>
+</html>

@@ -94,7 +94,7 @@ public class ActivitiServiceImpl implements ActivitiService {
     public void askForLeave(ActivitiVo activitiVo) {
         //查询已部署的流程
         DeploymentQuery query = repositoryService.createDeploymentQuery();
-        List<Deployment> list = query.deploymentKey("ASK_FOR_LEAVE_ACT").list();
+        List<Deployment> list = query.deploymentKey("流程关键字").list();
 
         ProcessDefinitionQuery processDefinitionQuery = repositoryService.createProcessDefinitionQuery();
         List<ProcessDefinition> list1 = processDefinitionQuery.deploymentId(list.get(0).getId()).list();

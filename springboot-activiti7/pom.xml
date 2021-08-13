@@ -16,6 +16,7 @@
 
     <properties>
         <activiti.version>7.1.0.M5</activiti.version>
+        <activiti.modeler.version>5.23.0</activiti.modeler.version>
     </properties>
 
     <dependencies>
@@ -29,6 +30,16 @@
             <groupId>org.activiti</groupId>
             <artifactId>activiti-image-generator</artifactId>
             <version>${activiti.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.activiti</groupId>
+            <artifactId>activiti-modeler</artifactId>
+            <version>${activiti.modeler.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.activiti</groupId>
+            <artifactId>activiti-diagram-rest</artifactId>
+            <version>${activiti.modeler.version}</version>
         </dependency>
 
         <!--添加MySQL驱动依赖 -->
