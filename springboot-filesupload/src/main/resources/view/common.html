@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<!--suppress ALL -->
+<html xmlns:th="http://www.thymeleaf.org">
+
+<!--
+    定义附件管理模板
+
+    使用示例：<div th:replace="/common::attachment(123456)"></div>
+-->
+<div th:fragment="attachment(applyId)">
+    <form th:applyId="${applyId}" class="attachments-form" enctype="multipart/form-data">
+        <div class='layui-form-item button-div'>
+            <label class="layui-form-label"></label>
+            <div class="layui-input-block">
+                <button type="button" class="layui-btn layui-btn-primary" onclick="Attachment.appendAttachmentInput(this)"><i class="layui-icon layui-icon-upload-drag"></i> 选择文件</button>
+            </div>
+        </div>
+        <div class='layui-form-item attachments-list-div'>
+            <label class="layui-form-label">附件列表：</label>
+            <div class="layui-input-block attachments-list"></div>
+        </div>
+        <div class='layui-form-item progress-div'>
+            <label class="layui-form-label">上传进度：</label>
+            <div class="layui-input-block" style="padding-top: 20px;width: 80%;">
+                <div class="layui-progress" lay-filter="progress" lay-showPercent="yes">
+                    <div class="layui-progress-bar" lay-percent="0%"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+</html>

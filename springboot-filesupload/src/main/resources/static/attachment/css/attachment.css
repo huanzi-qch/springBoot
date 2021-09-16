@@ -1,0 +1,77 @@
+/**
+  * 附件管理
+  * css样式
+ */
+.nav-bar {
+    border-top: 1px solid #c5c5c5;
+    margin: 10px 0 20px;
+}
+
+.nav-bar-title {
+    margin: -13px 0 0 35px;
+    background-color: #fff;
+    padding: 0 10px;
+    float: left;
+    color: #199ED8;
+}
+
+.hidden{
+    display: none;
+}
+
+.attachment-remove {
+    font-size: 25px;
+    color: red;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.attachment-download {
+    font-size: 25px;
+    color: green;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.attachment-text-p {
+    border: 1px solid #c2cad8;
+    padding: 5px 5px;
+    margin: 0;
+    float: left;
+    height: 17px;
+    width: 90%;
+}
+
+.attachment-text-p + i {
+    float: left;
+    line-height: 30px !important;
+}
+
+.input-attachment {
+    width: 90% !important;
+    padding: 4px 12px !important;
+}
+
+.attachments-list-div{
+    display: none;
+}
+
+.progress-div{
+    display: none;
+}
+
+.progress {
+    width: 600px;
+    height: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    margin: 10px 0px;
+    overflow: hidden;
+}
+
+.progress > div {
+    width: 0px;
+    height: 100%;
+    background-color: yellowgreen;
+    transition: all .3s ease;
+}

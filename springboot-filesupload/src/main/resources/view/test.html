@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>附件模块与业务表单整合测试</title>
+    <!-- 在线引入 -->
+    <link rel="stylesheet" href="//unpkg.com/layui@2.6.8/dist/css/layui.css">
+
+    <!-- 引入附件管理css样式 -->
+    <link rel="stylesheet" href="/attachment/css/attachment.css"/>
+</head>
+<body>
+<div class="layui-bg-gray" style="padding: 30px;">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-md6">
+            <div class="layui-card">
+                <div class="layui-card-header">测试表单1，业务id：123456</div>
+                <div class="layui-card-body">
+                    <!-- 测试表单 -->
+                    <form id="testForm1" class="layui-form">
+                        <div class="nav-bar"><span class="nav-bar-title">基础数据</span></div>
+                        <input type="hidden" name="applyId" value="123456"/>
+                        <div class='layui-form-item'>
+                            <label class="layui-form-label">用户名：</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="username" class="layui-input" />
+                            </div>
+                        </div>
+                        <div class='layui-form-item'>
+                            <label class="layui-form-label">年龄：</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="age" class="layui-input"/>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="nav-bar"><span class="nav-bar-title">附件管理</span></div>
+                    <div th:replace="/common::attachment(123456)"></div>
+
+                    <button class="layui-btn layui-btn-primary" onclick="submit1()">提交</button>
+                    <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-md6">
+            <div class="layui-card">
+                <div class="layui-card-header">测试表单2，业务id：7890</div>
+                <div class="layui-card-body">
+                    <!-- 测试表单 -->
+                    <form id="testForm2" class="layui-form">
+                        <div class="nav-bar"><span class="nav-bar-title">基础数据</span></div>
+                        <input type="hidden" name="applyId" value="123456"/>
+                        <div class='layui-form-item'>
+                            <label class="layui-form-label">用户名：</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="username" class="layui-input" />
+                            </div>
+                        </div>
+                        <div class='layui-form-item'>
+                            <label class="layui-form-label">年龄：</label>
+                            <div class="layui-input-block">
+                                <input type="text" name="age" class="layui-input"/>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="nav-bar"><span class="nav-bar-title">附件管理</span></div>
+                    <div th:replace="/common::attachment(7890)"></div>
+
+                    <button id="button21" class="layui-btn layui-btn-primary" onclick="submit2()">提交</button>
+                    <button id="button22" type="reset" class="layui-btn layui-btn-primary">重置</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<!-- 在线引入 -->
+<script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
+<script src="//unpkg.com/layui@2.6.8/dist/layui.js"></script>
+
+<!-- 引入附件管理js脚本 -->
+<script src="/attachment/js/attachment.js"></script>
+<script>
+    /**
+     * 拓展表单对象：用于将对象序列化为JSON对象
+     */
+    $.fn.serializeObject = function () {
+        var o = {};
+        var a = this.serializeArray();
+        $.each(a, function () {
+            if (o[this.name]) {
+                if (!o[this.name].push) {
+                    o[this.name] = [o[this.name]];
+                }
+                o[this.name].push(this.value || '');
+            } else {
+                o[this.name] = this.value || '';
+            }
+        });
+        return o;
+    };
+
+    /**
+     * 拓展表单对象：表单自动回显
+     */
+    $.fn.form = function (data) {
+        let form = $(this);
+        for (let i in data) {
+            valuAtion(i, data[i]);
+        }
+
+        function valuAtion(name, value) {
+            if (form.length < 1) {
+                return;
+            }
+            if (form.find("[name='" + name + "']").length < 1) {
+                return;
+            }
+            let input = form.find("[name='" + name + "']")[0];
+            if ($.inArray(input.type, ["text", "password", "hidden", "select-one", "textarea"]) > -1) {
+                $(input).val(value);
+            } else if (input.type === "radio" || input.type === "checkbox") {
+                form.find("[name='" + name + "'][value='" + value + "']").attr("checked", true);
+            }
+        }
+    };
+
+    //表单提交
+    function submit1() {
+        //调用自己的保存业务
+        let testFormData = $("#testForm1").serializeObject();
+        console.log(testFormData);
+
+        //上传附件
+        Attachment.upload("123456");
+    }
+    function submit2() {
+        //调用自己的保存业务
+        let testFormData = $("#testForm2").serializeObject();
+        console.log(testFormData);
+
+        //上传附件
+        Attachment.upload("7890");
+    }
+
+    //表单回显（可编辑与不可编辑）
+    function showForm1() {
+        //回显基础数据
+        $("#testForm1").form({username:"张三",age:18});
+
+        //回显附件
+        Attachment.showDndEditAttachments("123456");
+    }
+    function showForm2() {
+        //回显基础数据
+        $("#testForm2").form({username:"李四",age:81});
+
+        //禁用表单、以及隐藏按钮
+        $("#testForm2 input").prop("disabled", true);
+        $("#button21").remove();
+        $("#button22").remove();
+
+        //回显附件
+        Attachment.showDndDownloadAttachments("7890");
+    }
+</script>
+</html>
