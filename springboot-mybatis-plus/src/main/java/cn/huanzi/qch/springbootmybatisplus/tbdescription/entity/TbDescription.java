@@ -2,9 +2,8 @@ package cn.huanzi.qch.springbootmybatisplus.tbdescription.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
-import lombok.experimental.Accessors;
 
 /**
  * <p>
@@ -15,6 +14,7 @@ import lombok.experimental.Accessors;
  * @since 2020-08-25
  */
 @Data
+@TableName("tb_description")
 public class TbDescription {
 
     /**

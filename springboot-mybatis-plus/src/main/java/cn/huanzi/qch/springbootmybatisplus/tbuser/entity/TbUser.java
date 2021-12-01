@@ -1,11 +1,12 @@
 package cn.huanzi.qch.springbootmybatisplus.tbuser.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
-import java.util.Date;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
-import lombok.experimental.Accessors;
+
+import java.util.Date;
 
 /**
  * <p>
@@ -16,6 +17,7 @@ import lombok.experimental.Accessors;
  * @since 2020-08-25
  */
 @Data
+@TableName("tb_user")
 public class TbUser {
 
     /**
@@ -28,20 +30,24 @@ public class TbUser {
     /**
      * 用户名
      */
+    @TableField(value="username")
     private String username;
 
     /**
      * 密码
      */
+    @TableField(value="password")
     private String password;
 
     /**
      * 创建时间
      */
+    @TableField(value="created")
     private Date created;
 
     /**
      * 关联详情id
      */
+    @TableField(value="description_id")
     private Integer descriptionId;
 }

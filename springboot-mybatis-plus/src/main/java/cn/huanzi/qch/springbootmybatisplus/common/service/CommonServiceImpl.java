@@ -30,9 +30,9 @@ public class CommonServiceImpl<V,T> implements CommonService<V,T> {
     @Autowired
     private CommonMapper<T> commonMapper;
 
-    private Class<V> entityVoClass;//实体类Vo
+    private final Class<V> entityVoClass;//实体类Vo
 
-    private Class<T> entityClass;//实体类
+    private final Class<T> entityClass;//实体类
 
     public CommonServiceImpl() {
         Type[] types = ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments();
@@ -51,11 +51,11 @@ public class CommonServiceImpl<V,T> implements CommonService<V,T> {
         T entity = CopyUtil.copy(entityVo, entityClass);
 
         //查询条件
-        QueryWrapper queryWrapper = new QueryWrapper();
+        QueryWrapper<T> queryWrapper = new QueryWrapper<>();
         queryWrapper.setEntity(entity);
 
         //排序
-        if(!StringUtils.isEmpty(pageCondition.getSord()) && "desc".equals(pageCondition.getSord().toLowerCase())){
+        if(!StringUtils.isEmpty(pageCondition.getSord()) && "desc".equalsIgnoreCase(pageCondition.getSord())){
             queryWrapper.orderByDesc(pageCondition.getSidx());
         }else{
             queryWrapper.orderByAsc(pageCondition.getSidx());
@@ -77,7 +77,7 @@ public class CommonServiceImpl<V,T> implements CommonService<V,T> {
     @Override
     public Result<List<V>> list(V entityVo) {
         T entity = CopyUtil.copy(entityVo, entityClass);
-        QueryWrapper queryWrapper = new QueryWrapper();
+        QueryWrapper<T> queryWrapper = new QueryWrapper<>();
         queryWrapper.setEntity(entity);
         return Result.build(CopyUtil.copyList(commonMapper.selectList(queryWrapper),entityVoClass));
     }
@@ -98,7 +98,7 @@ public class CommonServiceImpl<V,T> implements CommonService<V,T> {
         Object id = null;
 
         //为空的属性值，忽略属性，BeanUtils复制的时候用到
-        List<String> ignoreProperties = new ArrayList<String>();
+        List<String> ignoreProperties = new ArrayList<>();
 
         //获取最新数据，解决部分更新时jpa其他字段设置null问题
         try {
@@ -135,7 +135,7 @@ public class CommonServiceImpl<V,T> implements CommonService<V,T> {
         //新增或更新
         if(StringUtils.isEmpty(id)){
             //1插入成功、0失败
-            int newId = commonMapper.insert(entityFull);
+            commonMapper.insert(entityFull);
         }else{
             commonMapper.updateById(entityFull);
         }
