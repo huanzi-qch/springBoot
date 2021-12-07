@@ -93,21 +93,21 @@ SpringBoot用的是2.1.0.RELEASE，Demo代码主要参照官方文档，以及�
 | springboot-https | [SpringBoot系列——启用https](https://www.cnblogs.com/huanzi-qch/p/12133872.html) |
 | springboot-i18n | [SpringBoot系列——i18n国际化](https://www.cnblogs.com/huanzi-qch/p/10000324.html) |
 | springboot-jackson | [SpringBoot系列——Jackson序列化](https://www.cnblogs.com/huanzi-qch/p/11301453.html) |
-| springboot-jar-war | [SpringBoot系列——快速构建项目](https://www.cnblogs.com/huanzi-qch/p/9946591.html)<br/> [SpringBoot系列——jar包与war包的部署](https://www.cnblogs.com/huanzi-qch/p/9948060.html) |
-| springboot-jpa | [SpringBoot系列——Spring-Data-JPA](https://www.cnblogs.com/huanzi-qch/p/9970545.html)<br/> [SpringBoot系列——Spring-Data-JPA（升级版）](https://www.cnblogs.com/huanzi-qch/p/9984261.html)<br/> [SpringBoot系列——Spring-Data-JPA（究极进化版） 自动生成单表基础增、删、改、查接口](https://www.cnblogs.com/huanzi-qch/p/10281773.html) |
+| springboot-jar-war | [SpringBoot系列——快速构建项目](https://www.cnblogs.com/huanzi-qch/p/9946591.html) <br/> [SpringBoot系列——jar包与war包的部署](https://www.cnblogs.com/huanzi-qch/p/9948060.html) |
+| springboot-jpa | [SpringBoot系列——Spring-Data-JPA](https://www.cnblogs.com/huanzi-qch/p/9970545.html ) <br/> [SpringBoot系列——Spring-Data-JPA（升级版）](https://www.cnblogs.com/huanzi-qch/p/9984261.html) <br/> [SpringBoot系列——Spring-Data-JPA（究极进化版） 自动生成单表基础增、删、改、查接口](https://www.cnblogs.com/huanzi-qch/p/10281773.html) |
 | springboot-loadmyprofiles | [SpringBoot系列——加载自定义配置文件](https://www.cnblogs.com/huanzi-qch/p/11122107.html) |
 | springboot-logback | [SpringBoot系列——Logback日志，输出到文件以及实时输出到web页面](https://www.cnblogs.com/huanzi-qch/p/11041300.html) |
 | springboot-mail | [SpringBoot系列——mail](https://www.cnblogs.com/huanzi-qch/p/9957987.html) |
 | springboot-mybatis-plus | [SpringBoot系列——MyBatis-Plus整合封装](https://www.cnblogs.com/huanzi-qch/p/13561164.html) |
 | springboot-mybatis | [SpringBoot系列——MyBatis整合](https://www.cnblogs.com/huanzi-qch/p/10065136.html) |
 | springboot-redis | [SpringBoot系列——Redis](https://www.cnblogs.com/huanzi-qch/p/10239888.html) |
-| springboot-security | [SpringBoot系列——Security + Layui实现一套权限管理后台模板](https://www.cnblogs.com/huanzi-qch/p/11226705.html)<br/> [开源一套简单通用的后台管理系统](https://www.cnblogs.com/huanzi-qch/p/11534203.html) |
+| springboot-security | [SpringBoot系列——Security + Layui实现一套权限管理后台模板](https://www.cnblogs.com/huanzi-qch/p/11226705.html) <br/> [开源一套简单通用的后台管理系统](https://www.cnblogs.com/huanzi-qch/p/11534203.html) |
 | springboot-swagger2 | [SpringBoot系列——Swagger2之Swagger UI，API实时接口文档](https://www.cnblogs.com/huanzi-qch/p/9964498.html) |
 | springboot-thymeleaf | [SpringBoot系列——Thymeleaf模板](https://www.cnblogs.com/huanzi-qch/p/9930390.html) |
-| springboot-timer | [SpringBoot系列——定时器](https://www.cnblogs.com/huanzi-qch/p/9916079.html)<br/> [SpringBoot系列——动态定时任务](https://www.cnblogs.com/huanzi-qch/p/15117482.html)|
-| springboot-uniapp-mui | [SpringBoot系列——基于mui的H5套壳APP开发web框架](https://www.cnblogs.com/huanzi-qch/p/12727209.html)<br/> [SpringBoot系列——PC端、移动端页面适配方案](https://www.cnblogs.com/huanzi-qch/p/12053799.html)<br/> [移动端App uni-app + mui 开发记录](https://www.cnblogs.com/huanzi-qch/p/11972723.html) |
+| springboot-timer | [SpringBoot系列——定时器](https://www.cnblogs.com/huanzi-qch/p/9916079.html) <br/> [SpringBoot系列——动态定时任务](https://www.cnblogs.com/huanzi-qch/p/15117482.html)|
+| springboot-uniapp-mui | [SpringBoot系列——基于mui的H5套壳APP开发web框架](https://www.cnblogs.com/huanzi-qch/p/12727209.html) <br/> [SpringBoot系列——PC端、移动端页面适配方案](https://www.cnblogs.com/huanzi-qch/p/12053799.html) <br/> [移动端App uni-app + mui 开发记录](https://www.cnblogs.com/huanzi-qch/p/11972723.html) |
 | springboot-validation | [SpringBoot系列——validation参数校验](https://www.cnblogs.com/huanzi-qch/p/14985530.html) |
-| springboot-websocket | [SpringBoot系列——WebSocket](https://www.cnblogs.com/huanzi-qch/p/9952578.html)<br/> [WebSocket+Java 私聊、群聊实例](https://www.cnblogs.com/huanzi-qch/p/9889521.html) |
+| springboot-websocket | [SpringBoot系列——WebSocket](https://www.cnblogs.com/huanzi-qch/p/9952578.html) <br/> [WebSocket+Java 私聊、群聊实例](https://www.cnblogs.com/huanzi-qch/p/9889521.html) |
 
 ## AD广告位（长期招租，如有需要请私信）<br/> 
 [【基塔后台】免费后台管理系统，低代码快速搭建管理后台](https://www.jeata.com/?hmsr=promotion&hmpl=huanzi-qch) <br/>
@@ -131,15 +131,11 @@ QQ群号：1015379123
 <br/>注：如果图片加载不出来请点击查看[这里](http://huanzi-qch.gitee.io/file-server/images/qq.png)
 
 ## 捐献<br/>
-请注意，作者五行缺钱，如果喜欢这个项目，请随意打赏！
+相应的资金支持能更好的持续项目的维护和开发，如果喜欢这个项目，请随意打赏！
 
-支付宝<br/>
-![](http://huanzi-qch.gitee.io/file-server/images/zhifubao.png) 
-<br/>注：如果图片加载不出来请点击查看[这里](http://huanzi-qch.gitee.io/file-server/images/zhifubao.png) 
-
-微信<br/>
-![](http://huanzi-qch.gitee.io/file-server/images/weixin.png) 
-<br/>注：如果图片加载不出来请点击查看[这里](http://huanzi-qch.gitee.io/file-server/images/weixin.png) 
+| 支付宝 | 微信 |
+|  ----  | ----  |
+| <img src="http://huanzi-qch.gitee.io/file-server/images/zhifubao.png"  width="150"> | <img src="http://huanzi-qch.gitee.io/file-server/images/weixin.png" width="150"> |
 
 ## 学习资料<br/>
 Spring全家桶的GitHub：https://github.com/spring-projects <br/>
