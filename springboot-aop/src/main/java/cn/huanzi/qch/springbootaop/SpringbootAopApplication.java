@@ -13,6 +13,7 @@ public class SpringbootAopApplication {
         SpringApplication.run(SpringbootAopApplication.class, args);
     }
 
+    @MyAnnotation("aop测试")
     @RequestMapping("/")
     public String index(){
         return "欢迎访问 springboot-aop";
