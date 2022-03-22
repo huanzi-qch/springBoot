@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<!--解决idea thymeleaf 表达式模板报红波浪线-->
+<!--suppress ALL -->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ERROR-自定义错误页面</title>
+</head>
+<body>
+    <p th:text="${msg}"></p>
+</body>
+<!--
+    页面引入了jquery，主要用于ajax调用测试
+
+    function testAjax(url){
+        $.ajax({
+             type:"GET",
+             url:url,
+             data:{},
+             dataType:"JSON",
+             contentType:"application/x-www-form-urlencoded",
+             success:function(data){
+                console.log(data);
+             },
+             error:function(data){
+                 console.log(data);
+             }
+         })
+    }
+
+    testAjax("http://localhost:10010/test/index");
+    testAjax("http://localhost:10010/test/nullPointerException");
+    testAjax("http://localhost:10010/test/serviceException");
+    testAjax("http://localhost:10010/test/nullPointerException111");
+-->
+<script src="/js/jquery-1.9.1.min.js"></script>
+</html>

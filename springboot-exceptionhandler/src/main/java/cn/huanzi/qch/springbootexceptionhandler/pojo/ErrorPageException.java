@@ -5,7 +5,7 @@ package cn.huanzi.qch.springbootexceptionhandler.pojo;
  */
 public class ErrorPageException extends ServiceException {
 
-    public ErrorPageException(ErrorEnum errorEnum) {
-        super(errorEnum);
+    public ErrorPageException(String code) {
+        super(code, "Page Error");
     }
 }

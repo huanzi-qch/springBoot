@@ -6,11 +6,15 @@ import cn.huanzi.qch.springbootexceptionhandler.pojo.Result;
 import cn.huanzi.qch.springbootexceptionhandler.pojo.ServiceException;
 import cn.huanzi.qch.springbootexceptionhandler.util.ErrorUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 
 /**
@@ -24,12 +28,9 @@ public class ExceptionHandlerConfig{
      * 业务异常 统一处理
      */
     @ExceptionHandler(value = ServiceException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
-    public Result exceptionHandler400(ServiceException e){
-        //把错误信息输入到日志中
-        log.error(ErrorUtil.errorInfoToString(e));
-        return Result.error(e.getErrorEnum());
+    public Object exceptionHandler400(ServiceException e){
+        return returnResult(e,e.getErrorEnum());
     }
 
     /**
@@ -37,10 +38,27 @@ public class ExceptionHandlerConfig{
      */
     @ExceptionHandler(value = ErrorPageException.class)
     @ResponseBody
-    public Result exceptionHandler(ErrorPageException e){
-        //把错误信息输入到日志中
-        log.error(ErrorUtil.errorInfoToString(e));
-        return Result.error(e.getErrorEnum());
+    public Object exceptionHandler(ErrorPageException e){
+        ErrorEnum errorEnum;
+        switch (Integer.parseInt(e.getCode())) {
+            case 404:
+                errorEnum = ErrorEnum.NOT_FOUND;
+                break;
+            case 403:
+                errorEnum = ErrorEnum.FORBIDDEN;
+                break;
+            case 401:
+                errorEnum = ErrorEnum.UNAUTHORIZED;
+                break;
+            case 400:
+                errorEnum = ErrorEnum.BAD_REQUEST;
+                break;
+            default:
+                errorEnum = ErrorEnum.UNKNOWN;
+                break;
+        }
+
+        return returnResult(e,errorEnum);
     }
 
     /**
@@ -48,10 +66,8 @@ public class ExceptionHandlerConfig{
      */
     @ExceptionHandler(value =NullPointerException.class)
     @ResponseBody
-    public Result exceptionHandler500(NullPointerException e){
-        //把错误信息输入到日志中
-        log.error(ErrorUtil.errorInfoToString(e));
-        return Result.error(ErrorEnum.INTERNAL_SERVER_ERROR);
+    public Object exceptionHandler500(NullPointerException e){
+        return returnResult(e,ErrorEnum.INTERNAL_SERVER_ERROR);
     }
 
     /**
@@ -59,9 +75,30 @@ public class ExceptionHandlerConfig{
      */
     @ExceptionHandler(value =Exception.class)
     @ResponseBody
-    public Result exceptionHandler(Exception e){
+    public Object exceptionHandler(Exception e){
+        return returnResult(e,ErrorEnum.UNKNOWN);
+    }
+
+    /**
+     * 是否为ajax请求
+     * ajax请求，响应json格式数据，否则应该响应html页面
+     */
+    private Object returnResult(Exception e,ErrorEnum errorEnum){
         //把错误信息输入到日志中
         log.error(ErrorUtil.errorInfoToString(e));
-        return Result.error(ErrorEnum.UNKNOWN);
+
+        ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        HttpServletRequest request = requestAttributes.getRequest();
+        HttpServletResponse response = requestAttributes.getResponse();
+
+        //设置http响应状态
+        response.setStatus(200);
+
+        //判断是否为ajax请求
+        if ("XMLHttpRequest".equalsIgnoreCase(request.getHeader("X-Requested-With"))){
+            return Result.error(errorEnum);
+        }else{
+            return new ModelAndView("error","msg",errorEnum.getMsg());
+        }
     }
 }
