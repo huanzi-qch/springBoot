@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<!--解决idea thymeleaf 表达式模板报红波浪线-->
+<!--suppress ALL -->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <title>防重放与操作幂等</title>
+
+  <!-- 引入静态资源 -->
+  <script th:src="@{/js/jquery-1.9.1.min.js}" type="application/javascript"></script>
+</head>
+<body>
+  <form>
+    <!-- 隐藏域 -->
+    <input type="hidden" id="token" th:value="${token}"/>
+
+    <!-- 业务数据 -->
+    id：<input id="id" th:value="${id}"/> <br/>
+    msg：<input id="msg" th:value="${msg}"/> <br/>
+    version：<input id="version" th:value="${version}"/> <br/>
+
+    <!-- 操作按钮 -->
+    <br/>
+    <input type="submit" value="提交" onclick="formSubmit(this)"/>
+    <input type="reset" value="重置"/>
+  </form>
+  <br/>
+
+  <button id="btn">节流测试，点我</button>
+  <br/>
+  <button id="btn2">防抖测试，点我</button>
+</body>
+<script>
+  /*
+
+  //插入
+  for (let i = 0; i < 5; i++) {
+    $.get("http://localhost:10010/idem/insert?id=1&msg=张三"+i+"&version=1",null,function (data){
+      console.log(data);
+    });
+  }
+
+  //修改
+  for (let i = 0; i < 5; i++) {
+    $.get("http://localhost:10010/idem/update?id=1&msg=李四"+i+"&version=1",null,function (data){
+      console.log(data);
+    });
+  }
+
+  //删除
+  for (let i = 0; i < 5; i++) {
+    $.get("http://localhost:10010/idem/delete?id=1",null,function (data){
+      console.log(data);
+    });
+  }
+
+  //查询
+  for (let i = 0; i < 5; i++) {
+    $.get("http://localhost:10010/idem/select?id=1",null,function (data){
+      console.log(data);
+    });
+  }
+
+  //test表单测试
+  for (let i = 0; i < 5; i++) {
+    $.get("http://localhost:10010/test/test?token=abcd&id=1&msg=张三"+i+"&version=1",null,function (data){
+      console.log(data);
+    });
+  }
+
+  //节流测试
+  for (let i = 0; i < 5; i++) {
+    document.getElementById('btn').onclick();
+  }
+
+  //防抖测试
+  for (let i = 0; i < 5; i++) {
+    document.getElementById('btn2').onclick();
+  }
+
+   */
+
+
+  function formSubmit(but){
+    //按钮置灰
+    but.setAttribute("disabled","disabled");
+
+    let token = $("#token").val();
+    let id = $("#id").val();
+    let msg = $("#msg").val();
+    let version = $("#version").val();
+
+    $.ajax({
+      type: 'post',
+      url: "/test/test",
+      contentType:"application/x-www-form-urlencoded",
+      data: {
+        token:token,
+        id:id,
+        msg:msg,
+        version:version,
+      },
+      success: function (data) {
+        console.log(data);
+
+        //按钮恢复
+        but.removeAttribute("disabled");
+      },
+      error: function (xhr, status, error) {
+        console.error("ajax错误！");
+
+        //按钮恢复
+        but.removeAttribute("disabled");
+      }
+    });
+
+    return false;
+  }
+
+  document.getElementById('btn').onclick = throttle(function () {
+    console.log('节流测试 helloworld');
+  }, 1000)
+  // 节流：给定一个时间，不管这个时间你怎么点击，点上天，这个时间内也只会执行一次
+  // 节流函数
+  function throttle(fn, delay) {
+    var lastTime = new Date().getTime()
+    delay = delay || 200
+    return function () {
+      var args = arguments
+      var nowTime = new Date().getTime()
+      if (nowTime - lastTime >= delay) {
+        lastTime = nowTime
+        fn.apply(this, args)
+      }
+    }
+  }
+
+  document.getElementById('btn2').onclick = debounce(function () {
+    console.log('防抖测试 helloworld');
+  }, 1000)
+  // 防抖：给定一个时间，不管怎么点击按钮，每点一次，都会在最后一次点击等待这个时间过后执行
+  // 防抖函数
+  function debounce(fn, delay) {
+    var timer = null
+    delay = delay || 200
+    return function () {
+      var args = arguments
+      var that = this
+      clearTimeout(timer)
+      timer = setTimeout(function () {
+        fn.apply(that, args)
+      }, delay)
+    }
+  }
+</script>
+</html>
