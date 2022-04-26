@@ -18,6 +18,7 @@ var Attachment = {
         $form.find("input[name='attachment']").each((index, element) =>  {
             //过滤操作：input框有值，才append到formData
             if ($(element).val()) {
+                //如果是图片，可以进行压缩再上传，依赖js-image-compressor
                 formData.append("files",element.files[0]);
             }
         });
