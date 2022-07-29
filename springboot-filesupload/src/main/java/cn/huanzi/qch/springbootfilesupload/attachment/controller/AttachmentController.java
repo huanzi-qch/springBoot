@@ -1,6 +1,7 @@
 package cn.huanzi.qch.springbootfilesupload.attachment.controller;
 
 import cn.huanzi.qch.springbootfilesupload.attachment.vo.AttachmentVo;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -25,7 +26,8 @@ public class AttachmentController {
     /**
      * 附件存储路径
      */
-    private String uploadPath = System.getProperty("user.dir") + "\\springboot-filesupload\\src\\main\\resources\\static\\upload\\";
+    @Value("${file.upload-path}")
+    private String uploadPath;
 
     /**
      * 上传附件
@@ -50,11 +52,11 @@ public class AttachmentController {
     /**
      * 下载附件
      */
-    @PostMapping("/download")
+    @RequestMapping("/download")
     public ResponseEntity downLoad(String url) throws IOException {
         //文件数据、文件名
         File file = new File(uploadPath+url);
-        byte[] fileBytes = new byte[1024];
+        byte[] fileBytes = new byte[Math.toIntExact(file.length())];
         String fileName = file.getName();
         new FileInputStream(file).read(fileBytes);
 
