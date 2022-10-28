@@ -25,4 +25,9 @@ class TestController{
     public ModelAndView index(){
         return new ModelAndView("test.html");
     }
+
+    @GetMapping("test2")
+    public ModelAndView index2(){
+        return new ModelAndView("test2.html");
+    }
 }
