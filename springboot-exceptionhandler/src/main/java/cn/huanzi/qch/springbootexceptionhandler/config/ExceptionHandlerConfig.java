@@ -30,7 +30,7 @@ public class ExceptionHandlerConfig{
     @ExceptionHandler(value = ServiceException.class)
     @ResponseBody
     public Object exceptionHandler400(ServiceException e){
-        return returnResult(e,e.getErrorEnum());
+        return returnResult(e,Result.error(e.getErrorEnum()));
     }
 
     /**
@@ -58,7 +58,7 @@ public class ExceptionHandlerConfig{
                 break;
         }
 
-        return returnResult(e,errorEnum);
+        return returnResult(e,Result.error(errorEnum));
     }
 
     /**
@@ -67,23 +67,23 @@ public class ExceptionHandlerConfig{
     @ExceptionHandler(value =NullPointerException.class)
     @ResponseBody
     public Object exceptionHandler500(NullPointerException e){
-        return returnResult(e,ErrorEnum.INTERNAL_SERVER_ERROR);
+        return returnResult(e,Result.error(ErrorEnum.INTERNAL_SERVER_ERROR));
     }
 
     /**
-     * 未知异常 统一处理
+     * 其他异常 统一处理
      */
     @ExceptionHandler(value =Exception.class)
     @ResponseBody
     public Object exceptionHandler(Exception e){
-        return returnResult(e,ErrorEnum.UNKNOWN);
+        return returnResult(e,Result.of(ErrorEnum.UNKNOWN.getCode(), false, "【" + e.getClass().getName() + "】" + e.getMessage()));
     }
 
     /**
      * 是否为ajax请求
      * ajax请求，响应json格式数据，否则应该响应html页面
      */
-    private Object returnResult(Exception e,ErrorEnum errorEnum){
+    private Object returnResult(Exception e,Result errorResult){
         //把错误信息输入到日志中
         log.error(ErrorUtil.errorInfoToString(e));
 
@@ -96,9 +96,9 @@ public class ExceptionHandlerConfig{
 
         //判断是否为ajax请求
         if ("XMLHttpRequest".equalsIgnoreCase(request.getHeader("X-Requested-With"))){
-            return Result.error(errorEnum);
+            return errorResult;
         }else{
-            return new ModelAndView("error","msg",errorEnum.getMsg());
+            return new ModelAndView("error","msg",errorResult.getMsg());
         }
     }
 }

@@ -39,4 +39,12 @@ public class TestController {
     public Result serviceException(){
         throw new ServiceException(ErrorEnum.USER_NAME_IS_NOT_NULL);
     }
+
+    /**
+     * 其他异常
+     */
+    @GetMapping("runtimeException")
+    public Result runtimeException(){
+        throw new RuntimeException("其他异常");
+    }
 }
