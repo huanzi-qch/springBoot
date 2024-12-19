@@ -110,9 +110,7 @@ SpringBoot用的是2.1.0.RELEASE，Demo代码主要参照官方文档，以及�
 | springboot-validation | [SpringBoot系列——validation参数校验](https://www.cnblogs.com/huanzi-qch/p/14985530.html) |
 | springboot-websocket | [SpringBoot系列——WebSocket](https://www.cnblogs.com/huanzi-qch/p/9952578.html) <br/> [WebSocket+Java 私聊、群聊实例](https://www.cnblogs.com/huanzi-qch/p/9889521.html) |
 
-## [AD广告位](https://huanzi-qch.gitee.io/file-server/ad/adservice.html) （长期招租，如有需要请私信）<br/> 
-[【基塔后台】免费后台管理系统，低代码快速搭建管理后台](https://www.jeata.com/?hmsr=promotion&hmpl=huanzi-qch) <br/>
-<br/>
+## [AD广告位](https://huanzi-qch.gitee.io/file-server/ad/adservice.html) （长期招租，如有需要请私信）<br/>
 [【阿里云】阿里云最全的优惠活动聚集地！](https://www.aliyun.com/activity?userCode=ckkryd9h) <br/>
 [【腾讯云】腾讯云当前最新优惠活动专区！](https://cloud.tencent.com/act/cps/redirect?redirect=11447&cps_key=e1c9db729edccd479fc902634492bf53) <br/>
 <br/>

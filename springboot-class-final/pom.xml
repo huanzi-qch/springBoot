@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>springboot-class-final</artifactId>
+    <version>0.0.1</version>
+    <name>springboot-class-final</name>
+    <description>SpringBoot系列——jar包混淆加密</description>
+
+    <!--继承父类-->
+    <parent>
+        <groupId>cn.huanzi.qch</groupId>
+        <artifactId>parent</artifactId>
+        <version>1.0.0</version>
+    </parent>
+
+    <dependencies>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- jar包混淆加密 -->
+            <!--
+                打包时，父类pom.xml不要设置configuration
+                加密包位置：target/xxx-encrypted.jar
+
+                启动命令：
+                java -javaagent:springboot-class-final-0.0.1-encrypted.jar -jar springboot-class-final-0.0.1-encrypted.jar -XX:+DisableAttachMechanism
+
+            -->
+            <plugin>
+                <!-- https://gitee.com/roseboy/classfinal -->
+                <groupId>net.roseboy</groupId>
+                <artifactId>classfinal-maven-plugin</artifactId>
+                <version>1.2.1</version>
+                <configuration>
+                    <password>000000</password><!--加密打包之后pom.xml会被删除，不用担心在jar包里找到此密码-->
+                    <packages>cn.huanzi.qch</packages>
+                    <cfgfiles>application.properties</cfgfiles>
+                    <excludes>org.spring</excludes>
+                    <libjars>a.jar,b.jar</libjars>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>classFinal</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+    </build>
+
+</project>
