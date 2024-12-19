@@ -17,6 +17,8 @@ websocket.onerror = function (e) {
 
 //连接成功建立的回调方法
 websocket.onopen = function () {
+    console.log("WebSocket连接成功");
+
     //获取所有在线用户
     $.ajax({
         type: 'post',
@@ -110,7 +112,7 @@ websocket.onmessage = function (event) {
 
 //连接关闭的回调方法
 websocket.onclose = function () {
-    //alert("WebSocket连接关闭");
+    console.error("WebSocket连接关闭");
 }
 
 //将消息显示在对应聊天窗口    对于接收消息来说这里的toUserName就是来源用户，对于发送来说则相反

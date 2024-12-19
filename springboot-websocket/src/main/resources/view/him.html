@@ -1,0 +1,721 @@
+<!DOCTYPE>
+<!--解决idea thymeleaf 表达式模板报红波浪线-->
+<!--suppress ALL -->
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>HIM-聊天社区</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+    <script th:src="@{/js/jquery.min.js}"></script>
+    <style>
+        /* 聊天区 */
+        body{
+            background-color: #efebdc;
+        }
+        #hz-main{
+            width: 700px;
+            height: 500px;
+            background-color: red;
+            margin: 0 auto;
+        }
+
+        #hz-message{
+            width: 500px;
+            height: 500px;
+            float: left;
+            background-color: #B5B5B5;
+        }
+
+        #hz-message-body{
+            width: 460px;
+            height: 340px;
+            background-color: #E0C4DA;
+            padding: 10px 20px;
+            overflow:auto;
+        }
+
+        #hz-message-input{
+            width: 500px;
+            height: 99px;
+            background-color: white;
+            overflow:auto;
+        }
+
+        #hz-group{
+            width: 200px;
+            height: 500px;
+            background-color: rosybrown;
+            float: right;
+        }
+
+        .hz-message-list{
+            min-height: 30px;
+            margin: 10px 0;
+        }
+        .hz-message-list-text{
+            padding: 7px 13px;
+            border-radius: 15px;
+            width: auto;
+            max-width: 85%;
+            display: inline-block;
+        }
+
+        .hz-message-list-username{
+            margin: 0;
+        }
+
+        .hz-group-body{
+            overflow:auto;
+        }
+
+        .hz-group-list{
+            padding: 10px;
+        }
+
+        .left{
+            float: left;
+            color: #595a5a;
+            background-color: #ebebeb;
+        }
+        .right{
+            float: right;
+            color: #f7f8f8;
+            background-color: #919292;
+        }
+        .hz-badge{
+            width: 20px;
+            height: 20px;
+            background-color: #FF5722;
+            border-radius: 50%;
+            float: right;
+            color: white;
+            text-align: center;
+            line-height: 20px;
+            font-weight: bold;
+            opacity: 0;
+        }
+
+        /* 视频聊天窗 */
+        #main{
+            position: absolute;
+            width: 310px;
+            height: 510px;
+            top: 0;
+            display: none;
+        }
+        #localVideo{
+            position: absolute;
+            background: #757474;
+            top: 10px;
+            right: 10px;
+            width: 100px;
+            height: 150px;
+            z-index: 2;
+        }
+        #remoteVideo{
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            height: 100%;
+            background: #222;
+        }
+        #buttons{
+            z-index: 3;
+            bottom: 20px;
+            left: 90px;
+            position: absolute;
+        }
+        #tarUser{
+            border: 1px solid #ccc;
+            padding: 7px 0px;
+            border-radius: 5px;
+            padding-left: 5px;
+            margin-bottom: 5px;
+        }
+        #tarUser:focus{
+            border-color: #66afe9;
+            outline: 0;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6);
+            box-shadow: inset 0 1px 1px rgba(0,0,0,.075),0 0 8px rgba(102,175,233,.6)
+        }
+        #call{
+            width: 70px;
+            height: 35px;
+            background-color: #00BB00;
+            border: none;
+            margin-right: 25px;
+            color: white;
+            border-radius: 5px;
+        }
+        #hangup{
+            width:70px;
+            height:35px;
+            background-color:#FF5151;
+            border:none;
+            color:white;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+<div id="hz-main">
+    <div id="hz-message">
+        <!-- 头部 -->
+        正在与<span id="toUserName"></span>聊天
+        <hr style="margin: 0px;"/>
+        <!-- 主体 -->
+        <div id="hz-message-body">
+        </div>
+        <!-- 功能条 -->
+        <div id="">
+            <button id="videoBut">视频</button>
+            <button onclick="send()" style="float: right;">发送</button>
+        </div>
+        <!-- 输入框 -->
+        <div contenteditable="true" id="hz-message-input">
+
+        </div>
+    </div>
+    <div id="hz-group">
+        登录用户：<span id="talks" th:text="${username}">请登录</span>
+        <br/>
+        在线人数:<span id="onlineCount">0</span>
+        <!-- 主体 -->
+        <div id="hz-group-body">
+
+        </div>
+    </div>
+</div>
+<div id="main">
+    <video id="remoteVideo" playsinline autoplay></video>
+    <video id="localVideo" playsinline autoplay muted></video>
+
+    <div id="buttons">
+        <button id="hangup">挂断</button>
+    </div>
+</div>
+</body>
+<script type="text/javascript" th:inline="javascript">
+    //项目路径
+    ctx = [[${#request.getContextPath()}]];
+    //登录名
+    let username = /*[[${username}]]*/'';
+
+    //消息对象数组
+    let msgObjArr = new Array();
+    let websocket = null;
+    let peer = null;
+    let localVideo = document.getElementById('localVideo');
+    let remoteVideo = document.getElementById('remoteVideo');
+
+    WebSocketInit();
+
+    //WebSocket
+    function WebSocketInit(){
+
+        //判断当前浏览器是否支持WebSocket， springboot是项目名
+        if ('WebSocket' in window) {
+            //动态获取域名或ip
+            let hostname = window.location.hostname;
+            let port = window.location.port;
+            websocket = new WebSocket("ws://"+hostname+":" + port  + "/him/"+username);
+        } else {
+            console.error("不支持WebSocket");
+        }
+
+        //连接发生错误的回调方法
+        websocket.onerror = function (e) {
+            console.error("WebSocket连接发生错误");
+        };
+
+        //连接成功建立的回调方法
+        websocket.onopen = function () {
+            console.log("WebSocket连接成功");
+
+            //获取所有在线用户
+            $.ajax({
+                type: 'post',
+                url: ctx + "/him/getOnlineList",
+                contentType: 'application/json;charset=utf-8',
+                dataType: 'json',
+                data: {username:username},
+                success: function (data) {
+                    if (data.length) {
+                        //列表
+                        for (let i = 0; i < data.length; i++) {
+                            let userName = data[i];
+                            $("#hz-group-body").append("<div class=\"hz-group-list\"><span class='hz-group-list-username'>" + userName + "</span><span id=\"" + userName + "-status\">[在线]</span><div id=\"hz-badge-" + userName + "\" class='hz-badge'>0</div></div>");
+                        }
+
+                        //在线人数
+                        $("#onlineCount").text(data.length);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.log("ajax错误！");
+                }
+            });
+        }
+
+        //接收到消息的回调方法
+        websocket.onmessage = function (event) {
+            let messageJson = eval("(" + event.data + ")");
+
+            chartOnMsg(messageJson);
+
+            webRtcOnMsg(messageJson);
+
+        }
+
+        //连接关闭的回调方法
+        websocket.onclose = function () {
+            console.error("WebSocket连接关闭");
+        }
+    }
+
+    //聊天onmessage
+    function chartOnMsg(messageJson){
+        //普通消息(私聊)
+        if (messageJson.type == "1") {
+            //来源用户
+            let srcUser = messageJson.srcUser;
+            //目标用户
+            let tarUser = messageJson.tarUser;
+            //消息
+            let message = messageJson.message;
+
+            //最加聊天数据
+            setMessageInnerHTML(srcUser.username,srcUser.username, message);
+        }
+
+        //普通消息(群聊)
+        if (messageJson.type == "2"){
+            //来源用户
+            let srcUser = messageJson.srcUser;
+            //目标用户
+            let tarUser = messageJson.tarUser;
+            //消息
+            let message = messageJson.message;
+
+            //最加聊天数据
+            setMessageInnerHTML(username,tarUser.username, message);
+        }
+
+        //对方不在线
+        if (messageJson.type == "0"){
+            //消息
+            let message = messageJson.message;
+
+            $("#hz-message-body").append(
+                "<div class=\"hz-message-list\" style='text-align: center;'>" +
+                "<div class=\"hz-message-list-text\">" +
+                "<span>" + message + "</span>" +
+                "</div>" +
+                "</div>");
+        }
+
+        //在线人数
+        if (messageJson.type == "onlineCount") {
+            //取出username
+            let onlineCount = messageJson.onlineCount;
+            let userName = messageJson.username;
+            let oldOnlineCount = $("#onlineCount").text();
+
+            //新旧在线人数对比
+            if (oldOnlineCount < onlineCount) {
+                if($("#" + userName + "-status").length > 0){
+                    $("#" + userName + "-status").text("[在线]");
+                }else{
+                    $("#hz-group-body").append("<div class=\"hz-group-list\"><span class='hz-group-list-username'>" + userName + "</span><span id=\"" + userName + "-status\">[在线]</span><div id=\"hz-badge-" + userName + "\" class='hz-badge'>0</div></div>");
+                }
+            } else {
+                //有人下线
+                $("#" + userName + "-status").text("[离线]");
+            }
+            $("#onlineCount").text(onlineCount);
+        }
+
+    }
+    //视频onmessage
+    async function webRtcOnMsg(messageJson){
+        if (messageJson.type === 'hangup') {
+            document.getElementById('hangup').click();
+        }
+
+        if (messageJson.type === 'call_start') {
+            WebRTCInit(username,messageJson.srcUser.username);
+            let message = "0"
+            if(confirm(messageJson.srcUser.username + "发起视频通话，确定接听吗")==true){
+                $("#main").show();
+                message = "1"
+            }
+
+            websocket.send(JSON.stringify({
+                type:"call_back",
+                tarUser:{"username": messageJson.srcUser.username},
+                srcUser:{"username": username},
+                message:message
+            }));
+
+            return;
+        }
+
+        if (messageJson.type === 'call_back') {
+            if(messageJson.message === "1"){
+                //创建本地视频并发送offer
+                let stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false })
+                localVideo.srcObject = stream;
+                stream.getTracks().forEach(track => {
+                    peer.addTrack(track, stream);
+                });
+
+                let offer = await peer.createOffer();
+                await peer.setLocalDescription(offer);
+
+                let newOffer = offer.toJSON();
+                newOffer["srcUser"] = {"username": username};
+                newOffer["tarUser"] = {"username": $("#toUserName").text()};
+                websocket.send(JSON.stringify(newOffer));
+            }else if(messageJson.message === "0"){
+                alert("对方拒绝视频通话");
+                document.getElementById('hangup').click();
+            }else{
+                alert(messageJson.message);
+                document.getElementById('hangup').click();
+            }
+
+            return;
+        }
+
+        if (messageJson.type === 'offer') {
+            let stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+            localVideo.srcObject = stream;
+            stream.getTracks().forEach(track => {
+                peer.addTrack(track, stream);
+            });
+
+            let msgType = messageJson.type;
+            let msgSdp = messageJson.sdp;
+            await peer.setRemoteDescription(new RTCSessionDescription({msgType, msgSdp }));
+            let answer = await peer.createAnswer();
+            let newAnswer = answer.toJSON();
+
+            newAnswer["srcUser"] = {"username": username};
+            newAnswer["tarUser"] = {"username": $("#toUserName").text()};
+            websocket.send(JSON.stringify(newAnswer));
+
+            await peer.setLocalDescription(answer);
+            return;
+        }
+
+        if (messageJson.type === 'answer') {
+            let msgType = messageJson.type;
+            let msgSdp = messageJson.sdp;
+            peer.setRemoteDescription(new RTCSessionDescription({ msgType, msgSdp }));
+            return;
+        }
+
+        if (messageJson.type === '_ice') {
+            peer.addmessageJson.iceCandidate(messageJson.iceCandidate);
+            return;
+        }
+    }
+
+    //将消息显示在对应聊天窗口
+    //对于接收消息来说这里的toUserName就是来源用户，对于发送来说则相反
+    function setMessageInnerHTML(srcUserName,msgUserName, message) {
+        //判断
+        let childrens = $("#hz-group-body").children(".hz-group-list");
+        let isExist = false;
+        for (let i = 0; i < childrens.length; i++) {
+            let text = $(childrens[i]).find(".hz-group-list-username").text();
+            if (text == srcUserName) {
+                isExist = true;
+                break;
+            }
+        }
+        if (!isExist) {
+            //追加聊天对象
+            msgObjArr.push({
+                toUserName: srcUserName,
+                message: [{username: msgUserName, message: message, date: NowTime()}]//封装数据
+            });
+            $("#hz-group-body").append("<div class=\"hz-group-list\"><span class='hz-group-list-username'>" + srcUserName + "</span><span id=\"" + srcUserName + "-status\">[在线]</span><div id=\"hz-badge-" + srcUserName + "\" class='hz-badge'>0</div></div>");
+        } else {
+            //取出对象
+            let isExist = false;
+            for (let i = 0; i < msgObjArr.length; i++) {
+                let obj = msgObjArr[i];
+                if (obj.toUserName == srcUserName) {
+                    //保存最新数据
+                    obj.message.push({username: msgUserName, message: message, date: NowTime()});
+                    isExist = true;
+                    break;
+                }
+            }
+            if (!isExist) {
+                //追加聊天对象
+                msgObjArr.push({
+                    toUserName: srcUserName,
+                    message: [{username: msgUserName, message: message, date: NowTime()}]//封装数据
+                });
+            }
+        }
+
+        // 对于接收消息来说这里的toUserName就是来源用户，对于发送来说则相反
+        let username = $("#toUserName").text();
+
+        //刚好打开的是对应的聊天页面
+        if (srcUserName == username) {
+            $("#hz-message-body").append(
+                "<div class=\"hz-message-list\">" +
+                "<p class='hz-message-list-username'>"+msgUserName+"：</p>" +
+                "<div class=\"hz-message-list-text left\">" +
+                "<span>" + message + "</span>" +
+                "</div>" +
+                "<div style=\" clear: both; \"></div>" +
+                "</div>");
+        } else {
+            //小圆点++
+            let conut = $("#hz-badge-" + srcUserName).text();
+            $("#hz-badge-" + srcUserName).text(parseInt(conut) + 1);
+            $("#hz-badge-" + srcUserName).css("opacity", "1");
+        }
+    }
+
+    //发送消息
+    function send() {
+        //消息
+        let message = $("#hz-message-input").html();
+        //目标用户名
+        let tarUserName = $("#toUserName").text();
+        //登录用户名
+        let srcUserName = $("#talks").text();
+
+        if(!tarUserName){
+            return;
+        }
+
+        let type = tarUserName == srcUserName ? '2' : '1';
+        websocket.send(JSON.stringify({
+            "type": type,
+            "tarUser": {"username": tarUserName},
+            "srcUser": {"username": srcUserName},
+            "message": message
+        }));
+        $("#hz-message-body").append(
+            "<div class=\"hz-message-list\">" +
+            "<div class=\"hz-message-list-text right\">" +
+            "<span>" + message + "</span>" +
+            "</div>" +
+            "</div>");
+        $("#hz-message-input").html("");
+        //取出对象
+        if (msgObjArr.length > 0) {
+            let isExist = false;
+            for (let i = 0; i < msgObjArr.length; i++) {
+                let obj = msgObjArr[i];
+                if (obj.toUserName == tarUserName) {
+                    //保存最新数据
+                    obj.message.push({username: srcUserName, message: message, date: NowTime()});
+                    isExist = true;
+                    break;
+                }
+            }
+            if (!isExist) {
+                //追加聊天对象
+                msgObjArr.push({
+                    toUserName: tarUserName,
+                    message: [{username: srcUserName, message: message, date: NowTime()}]//封装数据[{username:huanzi,message:"你好，我是欢子！",date:2018-04-29 22:48:00}]
+                });
+            }
+        } else {
+            //追加聊天对象
+            msgObjArr.push({
+                toUserName: tarUserName,
+                message: [{username: srcUserName, message: message, date: NowTime()}]//封装数据[{username:huanzi,message:"你好，我是欢子！",date:2018-04-29 22:48:00}]
+            });
+        }
+    }
+
+    //获取当前时间
+    function NowTime() {
+        let time = new Date();
+        let year = time.getFullYear();//获取年
+        let month = time.getMonth() + 1;//或者月
+        let day = time.getDate();//或者天
+        let hour = time.getHours();//获取小时
+        let minu = time.getMinutes();//获取分钟
+        let second = time.getSeconds();//或者秒
+        let data = year + "-";
+        if (month < 10) {
+            data += "0";
+        }
+        data += month + "-";
+        if (day < 10) {
+            data += "0"
+        }
+        data += day + " ";
+        if (hour < 10) {
+            data += "0"
+        }
+        data += hour + ":";
+        if (minu < 10) {
+            data += "0"
+        }
+        data += minu + ":";
+        if (second < 10) {
+            data += "0"
+        }
+        data += second;
+        return data;
+    }
+
+    //WebRTC
+    function WebRTCInit(srcUser,tarUser){
+        peer = new RTCPeerConnection();
+
+        //ice
+        peer.onicecandidate = function (e) {
+            if (e.candidate) {
+                websocket.send(JSON.stringify({
+                    type: '_ice',
+                    tarUser:{"username": tarUser},
+                    srcUser:{"username": srcUser},
+                    iceCandidate: e.candidate
+                }));
+            }
+        };
+
+        //track
+        peer.ontrack = function (e) {
+            if (e && e.streams) {
+                remoteVideo.srcObject = e.streams[0];
+            }
+        };
+    }
+
+    //监听点击用户
+    $("body").on("click", ".hz-group-list", function () {
+        $(".hz-group-list").css("background-color", "");
+        $(this).css("background-color", "whitesmoke");
+        $("#toUserName").text($(this).find(".hz-group-list-username").text());
+
+        //清空旧数据，从对象中取出并追加
+        $("#hz-message-body").empty();
+        $("#hz-badge-" + $("#toUserName").text()).text("0");
+        $("#hz-badge-" + $("#toUserName").text()).css("opacity", "0");
+        if (msgObjArr.length > 0) {
+            for (let i = 0; i < msgObjArr.length; i++) {
+                let obj = msgObjArr[i];
+                if (obj.toUserName == $("#toUserName").text()) {
+                    //追加数据
+                    let messageArr = obj.message;
+                    if (messageArr.length > 0) {
+                        for (let j = 0; j < messageArr.length; j++) {
+                            let msgObj = messageArr[j];
+                            let leftOrRight = "right";
+                            let message = msgObj.message;
+                            let msgUserName = msgObj.username;
+                            let toUserName = $("#toUserName").text();
+
+                            //当聊天窗口与msgUserName的人相同，文字在左边（对方/其他人），否则在右边（自己）
+                            if (msgUserName == toUserName) {
+                                leftOrRight = "left";
+                            }
+
+                            //但是如果点击的是自己，群聊的逻辑就不太一样了
+                            if (username == toUserName && msgUserName != toUserName) {
+                                leftOrRight = "left";
+                            }
+
+                            if (username == toUserName && msgUserName == toUserName) {
+                                leftOrRight = "right";
+                            }
+
+                            let magUserName = leftOrRight == "left" ? "<p class='hz-message-list-username'>"+msgUserName+"：</p>" : "";
+
+                            $("#hz-message-body").append(
+                                "<div class=\"hz-message-list\">" +
+                                magUserName+
+                                "<div class=\"hz-message-list-text " + leftOrRight + "\">" +
+                                "<span>" + message + "</span>" +
+                                "</div>" +
+                                "<div style=\" clear: both; \"></div>" +
+                                "</div>");
+                        }
+                    }
+                    break;
+                }
+            }
+        }
+    });
+
+    //视频通话
+    document.getElementById('videoBut').onclick = function (e){
+        let tarUser = $("#toUserName").text();
+
+        if(!tarUser || tarUser == username){
+            alert("视频通话仅私聊可用");
+            return;
+        }
+
+        $("#main").show();
+
+        if(peer == null){
+            WebRTCInit(username,tarUser);
+        }
+
+        websocket.send(JSON.stringify({
+            "type":"call_start",
+            "srcUser": {"username": username},
+            "tarUser": {"username": tarUser},
+        }));
+    }
+
+    //挂断
+    document.getElementById('hangup').onclick = function (e){
+        if(localVideo.srcObject){
+            const videoTracks = localVideo.srcObject.getVideoTracks();
+            videoTracks.forEach(videoTrack => {
+                videoTrack.stop();
+                localVideo.srcObject.removeTrack(videoTrack);
+            });
+        }
+
+        if(remoteVideo.srcObject){
+            const videoTracks = remoteVideo.srcObject.getVideoTracks();
+            videoTracks.forEach(videoTrack => {
+                videoTrack.stop();
+                remoteVideo.srcObject.removeTrack(videoTrack);
+            });
+
+            //挂断同时，通知对方
+            websocket.send(JSON.stringify({
+                type:"hangup",
+                srcUser:{"username": username},
+                tarUser:{"username": $("#toUserName").text()},
+            }));
+        }
+
+        if(peer){
+            peer.ontrack = null;
+            peer.onremovetrack = null;
+            peer.onremovestream = null;
+            peer.onicecandidate = null;
+            peer.oniceconnectionstatechange = null;
+            peer.onsignalingstatechange = null;
+            peer.onicegatheringstatechange = null;
+            peer.onnegotiationneeded = null;
+
+            peer.close();
+            peer = null;
+        }
+
+        localVideo.srcObject = null;
+        remoteVideo.srcObject = null;
+
+        $("#main").hide();
+    }
+</script>
+</html>
