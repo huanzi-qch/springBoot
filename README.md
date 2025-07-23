@@ -117,7 +117,7 @@ SpringBoot用的是2.1.0.RELEASE，Demo代码主要参照官方文档，以及�
 
 ## 交流群<br/>
 有事请加群，有问题进群大家一起交流！<br/>
-![](http://38.134.43.210/file-server/images/qq.png) 
+<img src="http://38.134.43.210/file-server/images/qq.png"  width="600">
 
 ## 捐献<br/>
 相应的资金支持能更好的持续项目的维护和开发，如果喜欢这个项目，请随意打赏！
